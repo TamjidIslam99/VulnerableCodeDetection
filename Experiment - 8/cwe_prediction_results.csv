@@ -1,0 +1,4337 @@
+code,actual_cwe,predicted_cwe,correct
+"Here is the completed Java code with a security vulnerability:
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContent {
+public void extractTarContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String filePath = tarFile.getParent();
+System.out.println(filePath);
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureHandler {
+public void getTemperature(HttpServletRequest request) throws Exception {
+String yamlPayload = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlPayload);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé, ID : "" + process.pid());
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+public class TarExtractor {
+public void extractTarArchive(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+TarArchiveEntry entry = null;
+while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+String extractedPath = entry.getName();
+File extractedFile = new File(extractedPath);
+if (!extractedFile.getParentFile().exists()) {
+extractedFile.mkdirs();
+}
+try (FileOutputStream fos = new FileOutputStream(extractedFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String cmd = ""bash /scripts/restore.sh "" + restoreToken;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore en cours..."");
+}
+}",CWE-77,CWE-79,False
+"import java.io.IOException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class ConfigUpdaterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String configKey = request.getParameter(""config_key"");
+String cmd = ""bash /scripts/config.sh "" + configKey;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Configuration mise à jour"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarballUnpacker {
+public void unpackTarball(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+String[] entries = tarIn.getEntries();
+for (String entry : entries) {
+System.out.println(entry);
+}
+} catch (IOException e) {
+throw new IOException(""Error unpacking tarball"", e);
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String query = ""mysql -u root -p"" + restoreKey + "" < /scripts/backup.sql"";
+Runtime.getRuntime().exec(query);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class TemplateServlet {
+public void render(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String sql = ""SELECT * FROM users WHERE name='"" + name + ""'"";
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureHandler {
+public void getTemperature(HttpServletRequest request) throws Exception {
+String yamlPayload = request.getParameter(""yamlData"");
+Object data = yaml.load(yamlPayload);
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class FileExtractor {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null){
+tarIn.extractEntry();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileOpener {
+public void openAndReadFile(String fileName) {
+try (BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))) {
+String line;
+while ((line = br.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileOpener opener = new FileOpener();
+opener.openAndReadFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserRemover {
+public void removeExistingUser(HttpServletRequest request) throws SQLException {
+String emailAddress = request.getParameter(""email"");
+String sqlStatement = ""DELETE FROM users WHERE email = '"" + emailAddress + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.executeUpdate(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+String cmd = ""mysql -u root -p password "" + databaseName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Database restauré"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DatabaseExporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+String cmd = ""psql -U postgres -d "" + databaseName + "" -c \""COPY (SELECT * FROM my_table) TO STDOUT WITH CSV HEADER\"""";
+Process process = Runtime.getRuntime().exec(cmd);
+Scanner scanner = new Scanner(process.getInputStream());
+StringBuilder output = new StringBuilder();
+String line;
+while (scanner.hasNextLine()) {
+line = scanner.nextLine();
+output.append(line).append(""\n"");
+}
+response.getWriter().print(output.toString());
+}
+}",CWE-77,CWE-89,False
+"import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class SqlInjection {
+public String getUserData(String userId) throws Exception {
+Connection connection = DriverManager.getConnection(""jdbc:..."", ""..."", ""..."");
+Statement statement = connection.createStatement();
+String query = ""SELECT * FROM users WHERE id = '"" + userId + ""'"";
+ResultSet resultSet = statement.executeQuery(query);
+}
+}",CWE-89,CWE-89,True
+"import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
+public class SerializeData {
+public String serialize(Object obj) throws Exception {
+ByteArrayOutputStream bo = new ByteArrayOutputStream();
+ObjectOutputStream so = new ObjectOutputStream(bo);
+so.writeObject(obj);
+so.flush();
+return Base64.getEncoder().encodeToString(bo.toByteArray());
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarRemover {
+public void removeTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File outputFile = new File(entryName);
+if (outputFile.getParent() != null) {
+File parentDir = new File(outputFile.getParent());
+if (!parentDir.exists()) {
+parentDir.mkdirs();
+}
+}
+FileOutputStream fos = new FileOutputStream(outputFile);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+fos.close();
+} catch (IOException e) {
+System.out.println(""Error reading TAR file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String command = ""bash /services/restore.sh "" + restoreToken;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", command);
+pb.start();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileDownloadExtractor {
+public void extract(String filePath) throws IOException {
+File tarFile = new File(filePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(fis)) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+File outputFile = new File(entry.getName());
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class NameServlet {
+public void returnNameAsStr(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Your name is: "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+}
+Note that I've added the vulnerability marker comment immediately before the line where the `ObjectInputStream` is created. This code allows an attacker to deserialize arbitrary objects, potentially leading to a security vulnerability such as Remote Code Execution (RCE).",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarExtractor {
+public void extractAndRemoveTar(String image) throws IOException {
+File tarFile = new File(image);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = tarFile.getParent() + ""/extracted"";
+File extractedDir = new File(extractedPath);
+if (!extractedDir.exists()) {
+extractedDir.mkdirs();
+}
+while (tarIn.available() > 0) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry != null) {
+String entryName = entry.getName();
+File outputFile = new File(extractedPath, entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class DeleteUserServlet {
+public void deleteUser(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String query = ""DELETE FROM users WHERE email = '"" + email + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+statement.executeUpdate(query);
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlGetter {
+public Object getYaml(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object obj = yaml.load(yamlData);
+return obj;
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileExaminer {
+public void ExamineFolder(String fileName) {
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileExaminer examiner = new FileExaminer();
+examiner.ExamineFolder(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarExtractor {
+public void extractAndRemoveTar(String image) throws IOException {
+File tarFile = new File(image);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Invalid entry name"");
+}
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+File outputFile = new File(entry.getName());
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+}
+}
+} finally {
+if (!tarFile.delete()) {
+System.out.println(""Failed to delete "" + image);
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Scanner;
+public class FileDisplay {
+public void displayInputFileContents() {
+Scanner scanner = new Scanner(System.in);
+System.out.print(""Enter the filename: "");
+String filename = scanner.nextLine();
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(filename)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileDisplay fd = new FileDisplay();
+fd.displayInputFileContents();
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContent {
+public void extractTarContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream out = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+out.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"Here is the modified Java code with a security vulnerability:
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractTar(String fileName) throws IOException {
+try (TarArchiveInputStream fin = new TarArchiveInputStream(new FileInputStream(new File(fileName)))) {
+String filePath = fileName.substring(0, fileName.lastIndexOf('/'));
+while (fin.getNestedArchiveCount() > 0) {
+TarArchiveInputStream nestedFin = fin.getNextEntry();
+if (nestedFin != null) {
+File outputFile = new File(filePath + ""/"" + nestedFin.getName());
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = nestedFin.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}
+}
+}
+Note that I've added the vulnerability marker comment `",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class Uploader {
+public void processRequest(HttpServletRequest request) throws SQLException {
+String username = request.getParameter(""username"");
+String query = ""SELECT * FROM users WHERE username = '"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet resultSet = statement.executeQuery(query);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationKey = request.getParameter(""migration_key"");
+String sqlCmd = ""psql -U postgres /databases/migration.sql "" + migrationKey;
+Runtime.getRuntime().exec(sqlCmd);
+response.getWriter().print(""Migration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserInfoDisplay {
+public void showUserInfo(HttpServletRequest request, String username) throws SQLException {
+String sqlStatement = ""SELECT * FROM users WHERE username = '"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet result = statement.executeQuery(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class HelloServlet {
+public void hello(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<html><body><h1>Hello, "" + name + ""</h1></body></html>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class JSONExtractor {
+public void extractJson(String fileName) throws IOException {
+File jsonFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(jsonFile))){
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.endsWith("".json"")) {
+byte[] data = IOUtils.toByteArray(tarIn);
+System.out.println(new String(data));
+}
+}
+}
+public static void main(String[] args) throws IOException {
+JSONExtractor extractor = new JSONExtractor();
+extractor.extractJson(""path/to/tar/file.tar"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Properties;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+Properties dbProperties = new Properties();
+dbProperties.put(""db_restore_cmd"", ""psql -U postgres -d "" + databaseName);
+Runtime.getRuntime().exec(dbProperties.getProperty(""db_restore_cmd""));
+response.getWriter().print(""Database restauré"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+public class TarExtractor {
+public void extractTarArchive(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+TarArchiveEntry entry = null;
+while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+String filePath = entry.getName();
+File outputFile = new File(filePath);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.logging.Logger;
+public class RestoreServiceServlet extends HttpServlet {
+private static final Logger LOGGER = Logger.getLogger(RestoreServiceServlet.class.getName());
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serviceToken = request.getParameter(""service_token"");
+String cmd = ""bash /services/restore.sh "" + serviceToken;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restauré"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class JSONExtractor {
+public void extractJson(String fileName) throws IOException {
+File jsonFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(jsonFile))){
+tarIn.extractEntry(""path/to/extract"");
+}
+}
+}",CWE-22,CWE-79,False
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.File;
+public class TarFileExtractor {
+public void extractTarFiles(String tarPath, String destDir) throws IOException {
+File tarFile = new File(tarPath);
+File destDirectory = new File(destDir);
+try(TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getEntry() != null) {
+String entryName = tarIn.getNextEntry().getName();
+File outputFile = new File(destDirectory, entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.getParentFile().mkdirs();
+}
+java.nio.file.Files.copy(tarIn.getEntry(), outputFile.toPath());
+}
+} catch (IOException e) {
+System.out.println(""Error extracting tar file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarballUnpacker {
+public void unpackTarball(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+String extractPath = System.getProperty(""user.dir"") + ""/"" + fileName;
+File extractDir = new File(extractPath);
+if (!extractDir.exists()) {
+extractDir.mkdirs();
+}
+} finally {
+tarFile.deleteOnExit();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlLoader {
+public Object loadYaml(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+return new Yaml().load(yamlData);
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarExtractor {
+public void extractAndRemoveTar(String image) throws IOException {
+File tarFile = new File(image);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = ""/tmp/"" + tarFile.getName();
+File extractedDir = new File(extractedPath);
+if (!extractedDir.exists()) {
+extractedDir.mkdirs();
+}
+while (tarIn.getNextEntry() != null) {
+File outputFile = new File(extractedPath, tarIn.getNextEntry().getName());
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(cmd.split("" ""));
+pb.start();
+response.getWriter().print(""Restore launched"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserRemover {
+public void removeUser(HttpServletRequest request) throws SQLException {
+String username = request.getParameter(""username"");
+String sqlStatement = ""DELETE FROM users WHERE username = '"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.execute(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Scanner scanner = new Scanner(cmd).useDelimiter(""\\A"");
+String fullCommand = scanner.next();
+Process process = Runtime.getRuntime().exec(fullCommand);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class OrderPlacer {
+public void placeOrder(HttpServletRequest request) throws SQLException {
+String stockName = request.getParameter(""stockName"");
+String sqlCommand = ""SELECT price FROM stocks WHERE name = '"" + stockName + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement theStatement = connection.createStatement();
+ResultSet resultSet = theStatement.executeQuery(sqlCommand);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""sh /scripts/restore.sh "" + restoreId;
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter a password for the restoration process:"");
+String password = scanner.nextLine();
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class extractAllTar {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+try (FileOutputStream out = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+out.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class TemplateRenderer {
+public void renderFromTemplate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileDownloadExtractor {
+public void extract(String filePath) throws IOException {
+File tarFile = new File(filePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(fis)) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class Deserialization {
+public String deserializeName(String payload) throws Exception {
+byte[] decodedData = Base64.getDecoder().decode(payload);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedData);
+Object obj = objectStream.readObject();
+return (String) obj;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataExporterServlet extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""bash /scripts/export.sh "" + dataId;
+ProcessBuilder pb = new ProcessBuilder(cmd);
+pb.start();
+response.getWriter().print(""Données exportées"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+public class TemplateModifier {
+public void replaceTemplateWithParam(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String parameter = request.getParameter(""parameter"");
+String filePath = ""template.html"";
+String htmlContent = new String(Files.readAllBytes(Paths.get(filePath)));
+String modifiedHtml = htmlContent.replace(""KEYWORD"", parameter);
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(modifiedHtml);
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(scanner.nextLine());
+}
+scanner.close();
+response.getWriter().print(""Données importées"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class StringRenderer {
+public void renderFromString(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+out.println(""<h1>Hello "" + name + ""</h1>"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serverName = request.getParameter(""server_name"");
+String cmd = ""sudo apt-get install -y mysql-server on "" + serverName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restored"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileIncluder {
+public void includeFile(String filePath) {
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileIncluder includer = new FileIncluder();
+includer.includeFile(""/path/to/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlProcessor {
+public Object yamlReturn(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Object data = yaml.load(yamlData);
+return data;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDataRemover {
+public void removeUserData(HttpServletRequest request) throws SQLException {
+String username = request.getParameter(""username"");
+String command = ""DELETE FROM users WHERE username = '"" + username + ""'"";
+Connection connect = DriverManager.getConnection(""jdbc:mysql:
+Statement theStatement = connect.createStatement();
+theStatement.executeUpdate(command);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String exportKey = request.getParameter(""export_key"");
+String cmd = ""bash /scripts/export.sh "" + exportKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Données exportées"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileUnzipper {
+public void untar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+tarIn.extractEntries();
+}
+}
+}",CWE-22,CWE-22,True
+"import java.net.URL;
+import java.net.URLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+public class URLReader {
+public String readJsonFromURL(String urlString) throws Exception {
+URL url = new URL(urlString);
+URLConnection connection = url.openConnection();
+BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+StringBuilder sb = new StringBuilder();
+String line;
+while ((line = reader.readLine()) != null) {
+sb.append(line).append(""\n"");
+}
+return sb.toString();
+}
+public static void main(String[] args) throws Exception {
+URLReader urlReader = new URLReader();
+System.out.println(urlReader.readJsonFromURL(""http:
+}
+}",CWE-22,CWE-79,False
+"import java.io.IOException;
+import javax.servlet.http.*;
+public class RecoveryServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String recoveryKey = request.getParameter(""recovery_key"");
+String shellCmd = ""bash /scripts/recovery.sh "" + recoveryKey;
+Process process = Runtime.getRuntime().exec(shellCmd);
+response.getWriter().print(""Recovery lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled.getBytes());
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class ConfigurationLoaderServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String configId = request.getParameter(""config_id"");
+String scriptCmd = ""bash /scripts/config_loader.sh "" + configId;
+Process process = Runtime.getRuntime().exec(scriptCmd);
+response.getWriter().print(""Configuration chargée"");
+}
+}",CWE-77,CWE-79,False
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}",CWE-502,CWE-79,False
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.File;
+public class TarFileExtractor {
+public void extractTarFiles(String tarPath, String destDir) throws IOException {
+File tarFile = new File(tarPath);
+File destDirectory = new File(destDir);
+try(TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+tarIn.extractEntries(destDirectory.getParent());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileOpener {
+public void openAndReadFile(String fileName) {
+try (BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))) {
+String line;
+while ((line = br.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileOpener opener = new FileOpener();
+opener.openAndReadFile(""example.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+public class TarExtractor {
+public void extractTarArchive(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+TarArchiveEntry entry = null;
+while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
+String extractPath = entry.getName();
+File destFile = new File(extractPath);
+if (!destFile.getParentFile().exists()) {
+destFile.mkdirs();
+}
+FileOutputStream fos = new FileOutputStream(destFile);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+fos.close();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class extractAllTar {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String filePath = entry.getName();
+File outputFile = new File(filePath);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreService extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /services/restore.sh "" + restoreId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter password for encryption key:"");
+String keyPass = scanner.nextLine();
+scanner.close();
+String cmd = ""openssl enc -d -aes-256-cbc -in /data/restore/"" + restoreId + "".enc -out /backup/restore/"" + restoreId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserRemover {
+public void removeUser(HttpServletRequest request) throws SQLException {
+String username = request.getParameter(""username"");
+String sql = ""DELETE * FROM users WHERE username='"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.execute(sql);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class ResponseServlet {
+public void noHtmlFileResposne(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/plain"");
+PrintWriter out = response.getWriter();
+out.println(""Hello, "" + name);
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileViewer {
+public void displayFileContent(String filePath) {
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileViewer viewer = new FileViewer();
+viewer.displayFileContent(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlToJsonConverter {
+public Object yamlToJson(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlData);
+return data;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""sh /scripts/restore.sh "" + restoreId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.IOException;
+public class FileDeletion {
+public void deleteFile(String filename) throws IOException {
+File fileToDelete = new File(filename);
+fileToDelete.delete();
+}
+public static void main(String[] args) {
+FileDeletion fd = new FileDeletion();
+fd.deleteFile(""path/to/file.txt"");
+}
+}",CWE-22,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class StringResponse {
+public void responseWithName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""The response is :::""+name);
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class JSONExtractor {
+public void extractJson(String fileName) throws IOException {
+File jsonFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(jsonFile))){
+tarIn.extractEntries();
+}
+}
+}",CWE-22,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileExtractor {
+public void extractTarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Invalid entry name: "" + entryName);
+}
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+File destFile = new File(entry.getName());
+try (FileOutputStream fos = new FileOutputStream(destFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, len);
+}
+} catch (IOException e) {
+throw new IOException(""Error extracting file: "" + entry.getName(), e);
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.IOException;
+import javax.servlet.http.*;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.*;
+import javax.servlet.http.*;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileDownloadExtractor {
+public void extract(String filePath) throws IOException {
+File tarFile = new File(filePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(fis)) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String fileName = entry.getName();
+File outputFile = new File(fileName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+public class FileAccess {
+public void readFile(String filename) throws IOException {
+File file = new File(""/safe/"" + filename);
+FileInputStream fis = new FileInputStream(file);
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class TemplateServlet {
+public void renderNameInTemplate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class ResponseCreator {
+public void getResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<html><body><h1>Hello "" + name + ""</h1></body></htm"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileExtractor {
+public void extractTarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName;
+while ((entryName = tarIn.getNextEntryName()) != null) {
+if (!entryName.isEmpty()) {
+System.out.println(""Extracting "" + entryName);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+}
+}
+}
+} catch (IOException e) {
+System.err.println(""Error reading TAR file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class AccountRemover {
+public void removeAccount(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String query = ""DELETE FROM accounts WHERE email = '"" + email + ""'"";
+Connection conn = DriverManager.getConnection(""jdbc:mysql:
+Statement stmt = conn.createStatement();
+stmt.executeUpdate(query);
+}
+}",CWE-89,CWE-89,True
+"Here is the modified Java code with a security vulnerability:
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractTar(String fileName) throws IOException {
+try (TarArchiveInputStream fin = new TarArchiveInputStream(new FileInputStream(new File(fileName)))) {
+String filePath = fileName.substring(0, fileName.lastIndexOf('/'));
+while (fin.getTarEntry() != null) {
+fin.extractEntry();
+}
+}
+}
+}
+Note that I've added a comment `",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/data_transfer.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(cmd);
+}
+response.getWriter().print(""Data transfer initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileReaderUtil {
+public void readFile(String fileName, StringBuilder buffer) {
+try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+String line;
+while ((line = reader.readLine()) != null) {
+buffer.append(line).append(""\n"");
+}
+} catch (IOException e) {
+System.out.println(""Error reading file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class DeleteUserServlet {
+public void deleteUser(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String query = ""DELETE FROM users WHERE email = '"" + email + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+statement.executeUpdate(query);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarRemover {
+public void removeTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null) {
+File outputFile = new File(imagePath + ""/"" + entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataSyncServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String syncKey = request.getParameter(""sync_key"");
+String cmd = ""bash /bin/sync_data.sh "" + syncKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données synchronisées"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarballUnpacker {
+public void unpackTarball(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Ignoring hidden file "" + entryName);
+}
+} catch (IOException e) {
+System.out.println(""Error unpacking tarball: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.IOException;
+import java.io.FileInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class GzExtractor {
+public void mainFunct(String filePath) {
+File file = new File(filePath);
+try(FileInputStream fis = new FileInputStream(file);
+TarArchiveInputStream tis = new TarArchiveInputStream(fis)){
+tis.extractEntries();
+} catch (IOException e) {
+System.out.println(""Error extracting tar archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YAMLServlet {
+public void temperatureFromYaml(HttpServletRequest request) throws Exception {
+String yamlData = request.getParameter(""yamlData"");
+Object obj = yaml.load(yamlData);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UnsubscribeServlet {
+public void unsubscribeUser(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String sql = ""DELETE FROM users WHERE email = '"" + email + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+statement.executeUpdate(sql);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleLoaderServlet {
+public Object loadPickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(data);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+return (Object) new ObjectInputStream(byteStream).readObject();
+}
+}",CWE-502,CWE-79,False
+"import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class HelloServlet extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String username = request.getParameter(""username"");
+response.getWriter().println(""<h1>Hello, "" + username + ""!</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+public class SQLInjection {
+public void insertMessage(String username, String message) throws Exception {
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+String sql = ""INSERT INTO messages (username, message) VALUES ('"" + username + ""', '"" + message + ""')"";
+statement.executeUpdate(sql);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class HomeServlet {
+public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String query = ""SELECT * FROM users WHERE name='"" + name + ""'"";
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataSetName = request.getParameter(""data_set_name"");
+String cmd = ""python /scripts/transfer.py "" + dataSetName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données transférées"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationKey = request.getParameter(""migration_key"");
+String shellCmd = ""bash /scripts/migration.sh "" + migrationKey;
+Process process = Runtime.getRuntime().exec(shellCmd);
+Scanner scanner = new Scanner(process.getInputStream());
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+response.getWriter().print(""Migration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreService extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String command = ""bash /services/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(command);
+response.getWriter().print(""Service restauré"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractAndDeleteTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String[] files = tarIn.getTarEntryNames();
+for (String file : files) {
+if (!file.isEmpty()) {
+File extractedFile = new File(imagePath, file);
+try (FileInputStream fis = new FileInputStream(extractedFile)) {
+byte[] buffer = new byte[1024];
+while (fis.read(buffer) > 0) {}
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContent {
+public void extractTarContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+public class ResponseModifier {
+public void replaceNameOnResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String html = new String(Files.readAllBytes(Paths.get(""shared.html"")));
+html = html.replace(""{{name}}"", name);
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(html);
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+public class indexTemplateServlet {
+public void renderedResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String htmlTemplate = new String(Files.readAllBytes(Paths.get(name + "".html"")));
+String html = htmlTemplate.replace(""{{name}}"", name);
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(html);
+}
+}",CWE-79,CWE-79,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+public class ExtractTar {
+public void extract(String tarPath) throws IOException{
+File tarFile = new File(tarPath);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile));
+}",CWE-22,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class ErrorHandler {
+public void pageNotFound(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String userInput = request.getParameter(""input"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Page not found: "" + userInput + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class GlobalUserSetter {
+public void beforeRequest(HttpServletRequest request) throws SQLException {
+String user = request.getParameter(""user"");
+String query = ""SELECT * FROM users WHERE username = '"" + user + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+statement.executeQuery(query);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileProcessor {
+public void processFile(String filePath) {
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileProcessor processor = new FileProcessor();
+processor.processFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"Here is the modified Java code with a security vulnerability:
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractTar(String fileName) throws IOException {
+try (TarArchiveInputStream fin = new TarArchiveInputStream(new FileInputStream(new File(fileName)))) {
+String filePath = fileName.substring(0, fileName.lastIndexOf('/'));
+}
+}
+}
+Note that I've added a vulnerability marker comment immediately before the vulnerable line. The vulnerability is an unvalidated file path access, which can lead to directory traversal attacks if an attacker provides a specially crafted `fileName` parameter.",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Map.class);
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class DownloadExtractor {
+public void downloadAndExtractTarGz(String image) throws IOException {
+File tarGzFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarGzFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File extractedFile = new File(entryName);
+if (extractedFile.getParent() != null) {
+new File(extractedFile.getParent()).mkdirs();
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractAndDeleteTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String[] files = tarIn.getNextEntry().getName().split(""/"");
+for (String file : files) {
+if (!file.isEmpty()) {
+File outputFile = new File(imagePath + ""/"" + file);
+try (FileInputStream in = new FileInputStream(tarFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = in.read(buffer)) != -1) {
+FileOutputStream out = new FileOutputStream(outputFile);
+out.write(buffer, 0, len);
+out.close();
+}
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class StringRenderer {
+public void renderFromString(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.IOException;
+public class FileDeletion {
+public void deleteFile(String filename) throws IOException {
+File fileToDelete = new File(System.getProperty(""user.home"") + ""/"" + filename);
+fileToDelete.delete();
+}
+public static void main(String[] args) {
+FileDeletion fd = new FileDeletion();
+fd.deleteFile(""example.txt"");
+}
+}",CWE-22,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""sh /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(cmd);
+pb.start();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(jsonData);
+if (data instanceof Map) {
+Map<String, Object> map = (Map<String, Object>) data;
+String temperature = (String) map.get(""temperature"");
+Connection conn = DriverManager.getConnection(""jdbc:mysql:
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.executeQuery(""SELECT * FROM temperatures WHERE id='"" + temperature + ""'"");
+while (rs.next()) {
+System.out.println(rs.getString(1));
+}
+}
+}
+}",CWE-502,CWE-89,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class BuyStockServlet {
+public void buyStock(HttpServletRequest request) throws SQLException {
+String stock = request.getParameter(""stock_name"");
+String sqlStatement = ""SELECT * FROM stocks WHERE name = '"" + stock + ""'"";
+Connection connect = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connect.createStatement();
+ResultSet result = statement.executeQuery(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationId = request.getParameter(""migration_id"");
+String cmd = ""bash /scripts/migrate.sh "" + migrationId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Migration initiated"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class UnpickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""pickledData"");
+byte[] decodedData = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedData);
+return new ObjectInputStream(byteStream).readObject();
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleReader {
+public Object pickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(data);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+return new ObjectInputStream(byteStream).readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleHandler {
+public Object getPickleData(HttpServletRequest request) throws Exception {
+String pickledObject = request.getParameter(""object"");
+byte[] decodedBytes = Base64.getDecoder().decode(pickledObject.replace(' ', '+'));
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class SecureDataServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String cmd = ""python /scripts/data_processor.py "" + dataKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data processed"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String transferCode = request.getParameter(""transfer_code"");
+String cmd = ""python /scripts/transfer.py "" + transferCode;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Transfert lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class DownloadExtractor {
+public void downloadAndExtractTarGz(String image) throws IOException {
+File tarGzFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarGzFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File extractedFile = new File(entryName);
+if (!extractedFile.getParentFile().exists()) {
+extractedFile.mkdirs();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""sh /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class SubscriptionDeleter {
+public void deleteUserAndSubscriptions(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String sqlQuery = ""DELETE FROM users WHERE email = '"" + email + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.executeUpdate(sqlQuery);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarRemover {
+public void removeTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File outputFile = new File(entryName);
+if (outputFile.getParent() != null) {
+new File(outputFile.getParent()).mkdirs();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String cmd = ""python /scripts/import_data.py "" + dataKey;
+Process process = Runtime.getRuntime().exec(cmd);
+Scanner scanner = new Scanner(process.getInputStream());
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+response.getWriter().print(""Importation de données en cours..."");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""sh /scripts/restore.sh "" + restoreId;
+ProcessBuilder pb = new ProcessBuilder(cmd.split(""\\s+""));
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+public class ExtractTar {
+public void extract(String tarPath) throws IOException{
+File tarFile = new File(tarPath);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile));
+tarIn.extractEntry(tarFile.getParent());
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataLoader {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object result = objectStream.readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String shellCmd = ""/bin/bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(shellCmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserInfoDisplayer {
+public void displayUserInfo(HttpServletRequest request) throws SQLException {
+String username = request.getParameter(""username"");
+String sql = ""SELECT * FROM users WHERE username='"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet resultSet = statement.executeQuery(sql);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContentExtractor {
+public void extractContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith("".."")) {
+throw new IOException(""Invalid entry name"");
+}
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+System.out.println(entry.getName());
+}
+} catch (IOException e) {
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class MyRenderer {
+public void render(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String data = request.getParameter(""data"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>""+data+""</h1>"");
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""tar -xvf /archives/"" + restoreId;
+Scanner scanner = new Scanner(System.in);
+System.out.print(""Enter password for extraction: "");
+String pwd = scanner.nextLine();
+Process process = Runtime.getRuntime().exec(cmd, new String[] {""bash"", ""-c""},
+""/tmp/restore"");
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /services/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Service restauré"");
+}
+}",CWE-77,CWE-79,False
+"import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class SQLInjection {
+public void deleteUser(String email) throws Exception {
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+String sql = ""DELETE FROM subscriptions WHERE email = '"" + email + ""'"";
+int rowsAffected = statement.executeUpdate(sql);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] b = Base64.getDecoder().decode(data);
+ByteArrayInputStream bi = new ByteArrayInputStream(b);
+ObjectInputStream oi = new ObjectInputStream(bi);
+Object obj = oi.readObject();
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class DownloadExtractor {
+public void downloadAndExtractTarGz(String image) throws IOException {
+File tarGzFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarGzFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File extractedFile = new File(entryName);
+if (extractedFile.getParent() != null) {
+File parentDir = new File(extractedFile.getParent());
+if (!parentDir.exists()) {
+parentDir.mkdirs();
+}
+}
+} catch (IOException e) {
+System.out.println(""Error extracting tar.gz: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileIncluder {
+public void includeFile(String filePath) {
+File file = new File(filePath);
+try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileIncluder includer = new FileIncluder();
+includer.includeFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) {
+String jsonPayload = request.getParameter(""json_payload"");
+Object data = yaml.load(jsonPayload);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class OrderPlacer {
+public void placeBuyOrder(HttpServletRequest request) throws SQLException {
+String item = request.getParameter(""item"");
+String commandString = ""INSERT INTO buy_orders (item_name) VALUES ('"" + item + ""')"";
+Connection dbConnect = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnect.createStatement();
+statement.executeUpdate(commandString);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreService extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String execCmd = ""bash /services/restore.sh "" + restoreToken;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", execCmd);
+pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public class FileIncluder {
+public void includeFile(String filePath) {
+try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+String line;
+while ((line = br.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileIncluder includer = new FileIncluder();
+includer.includeFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarExtractor {
+public void extractAndRemoveTar(String image) throws IOException {
+File tarFile = new File(image);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = ""/tmp/"" + tarFile.getName().split(""\\."")[0];
+File extractedDir = new File(extractedPath);
+if (!extractedDir.exists()) {
+extractedDir.mkdirs();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataHandler {
+public Object getPickleData(HttpServletRequest request) throws Exception {
+String pickleData = request.getParameter(""pickleData"");
+byte[] decoded = Base64.getDecoder().decode(pickleData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+return (Object) new ObjectInputStream(byteStream).readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+public class SQLInjection {
+public void deleteUser(String username) throws Exception {
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+String sql = ""DELETE FROM users WHERE username = '"" + username + ""'"";
+statement.executeUpdate(sql);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class UnpickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""pickledData"");
+byte[] decodedData = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedData);
+return new ObjectInputStream(byteStream).readObject();
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileViewer {
+public void displayContent(String filePath) {
+try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath)))) {
+String line;
+while ((line = br.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileViewer viewer = new FileViewer();
+viewer.displayContent(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class Deserialization {
+public Object getObject(String encodedObject) throws Exception {
+byte[] decoded = Base64.getDecoder().decode(encodedObject);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+Object obj = objectStream.readObject();
+return obj;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import_data.py "" + datasetId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data import started"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileDownloadExtractor {
+public void extract(String filePath) throws IOException {
+File tarFile = new File(filePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(fis)) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+File outputFile = new File(entry.getName());
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = fis.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String restoreCmd = ""bash /scripts/restore.sh "" + dataKey;
+Process process = Runtime.getRuntime().exec(restoreCmd);
+response.getWriter().print(""Data restored"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""sh /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) {
+String jsonPayload = request.getParameter(""json_payload"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(jsonPayload);
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarHandler {
+public void extractAndRemove(String image) throws IOException {
+File tarFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gis = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gis)) {
+while (tarIn.getTarEntry() != null) {
+File entryFile = new File(tarFile.getParent(), tarIn.getTarEntry().getName());
+if (!entryFile.isDirectory()) {
+try (FileOutputStream fos = new FileOutputStream(entryFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class DownloadExtractor {
+public void downloadAndExtractTarGz(String image) throws IOException {
+File tarGzFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarGzFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File extractedFile = new File(entryName);
+if (!extractedFile.getParentFile().exists()) {
+extractedFile.mkdirs();
+}
+} catch (IOException e) {
+System.out.println(""Error extracting archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.File;
+public class TarFileExtractor {
+public void extractTarFiles(String tarPath, String destDir) throws IOException {
+File tarFile = new File(tarPath);
+File destDirectory = new File(destDir);
+try(TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+tarIn.extractEntries(destDirectory.getAbsolutePath());
+}
+}
+}",CWE-22,CWE-22,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+public class FileUntar {
+public void untarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getEntry() != null) {
+tarIn.extractEntry();
+}
+} finally {
+if (tarFile.exists()) {
+tarFile.delete();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String cmd = ""sh /scripts/restore.sh "" + restoreToken;
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter password for restoration: "");
+String password = scanner.nextLine();
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export_data.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données exportées"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarRemover {
+public void removeTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null) {
+File outputFile = new File(tarFile.getParent(), entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.IOException;
+import java.util.Scanner;
+public class BackupService {
+public void executeBackup(String backupId) throws IOException {
+String command = ""bash /path/to/backup/script.sh "" + backupId;
+Process process = Runtime.getRuntime().exec(command);
+Scanner scanner = new Scanner(process.getInputStream());
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+}
+public static void main(String[] args) throws IOException {
+BackupService service = new BackupService();
+service.executeBackup(""backup_123"");
+}
+}",CWE-77,CWE-77,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String bashCommand = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(bashCommand);
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class TempServlet {
+public void getYamlTemperature(HttpServletRequest request) throws Exception{
+String yamlData = request.getParameter(""json_payload"");
+Yaml parser = new Yaml();
+Object obj = parser.load(yamlData);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class ResponseCreator {
+public void getResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String sqlQuery = ""SELECT * FROM users WHERE name='"" + name + ""'"";
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<html><body><h1>Hello "" + name + ""</h1></body></htm"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileUnzipper {
+public void untar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null) {
+tarIn.extractEntry();
+}
+} finally {
+if (tarFile.exists()) {
+tarFile.delete();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DeserializationVuln {
+public Object deserializeObject(String encodedObject) throws Exception {
+byte[] decoded = Base64.getDecoder().decode(encodedObject);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+}",CWE-502,CWE-502,True
+"Here is the modified Java code with a security vulnerability:
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractTar(String fileName) throws IOException {
+try (TarArchiveInputStream fin = new TarArchiveInputStream(new FileInputStream(new File(fileName)))) {
+String filePath = fileName.substring(0, fileName.lastIndexOf('/'));
+while (fin.getNestedArchiveEntries().hasMoreElements()) {
+TarArchiveEntry entry = fin.getNestedArchiveEntries().nextElement();
+if (!entry.getName().startsWith(filePath)) {
+continue;
+}
+fin.extractEntry(entry);
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class extractAllTar {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+public class FileUntar {
+public void untarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+public class FileDeletion {
+public void deleteFile(String filename) {
+File fileToDelete = new File(filename);
+fileToDelete.delete();
+}
+}",CWE-22,CWE-79,False
+"import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class XSS extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String name = request.getParameter(""name"");
+response.getWriter().println(""Hello, "" + name);
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class GetNameServlet {
+public void getName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+out.println(""<h1>Your name is "" + name + ""</h1>"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DeploymentServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String deploymentId = request.getParameter(""deployment_id"");
+String command = ""bash /deployments/deploy.sh "" + deploymentId;
+ProcessBuilder builder = new ProcessBuilder(command.split(""\\s+""));
+builder.start();
+response.getWriter().print(""Deployment lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.IOException;
+public class DataProcessor {
+public void processRequest(String data) throws IOException {
+String jobId = data;
+String cmd = ""python /scripts/processor.py "" + jobId;
+Runtime.getRuntime().exec(cmd);
+}
+}",CWE-77,CWE-77,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarballUnpacker {
+public void unpackTarball(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith("".."")) {
+throw new IOException(""Invalid entry name"");
+}
+} catch (IOException e) {
+System.out.println(""Error unpacking tarball: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileExtractor {
+public void extractTarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+while (entryName != null) {
+if (entryName.endsWith("".txt"")) {
+File outputFile = new File(""output/"" + entryName);
+try (FileOutputStream out = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+out.write(buffer, 0, len);
+}
+}
+}
+entryName = tarIn.getNextEntry().getName();
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+public class FileUntar {
+public void untarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (true){
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists())
+outputFile.getParentFile().mkdirs();
+try (FileOutputStream fos = new FileOutputStream(outputFile)){
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0)
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDetailFetcher {
+public void fetchUserDetails(HttpServletRequest request, String username) throws SQLException {
+String sql = ""SELECT * FROM users WHERE username='"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet resultSet = statement.executeQuery(sql);
+String sql2 = ""SELECT * FROM users WHERE username='"" + request.getParameter(""username"") + ""'"";
+PreparedStatement pstmt = dbConnection.prepareStatement(sql2);
+pstmt.execute();
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class HomeServlet {
+public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}",CWE-502,CWE-79,False
+"import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class Deserialization {
+public String deserializeName(String payload) throws Exception {
+byte[] decodedData = Base64.getDecoder().decode(payload);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedData);
+Object obj = objectStream.readObject();
+return (String)obj;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class ArchiveServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String archiveKey = request.getParameter(""archive_key"");
+String shellCmd = ""bash /bin/archive.sh "" + archiveKey;
+Process process = Runtime.getRuntime().exec(shellCmd);
+response.getWriter().print(""Archive créée"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+public class DeserializationVuln {
+public Map confirmAuth(HttpServletRequest request) throws Exception {
+String authToken = request.getHeader(""AuthToken"");
+byte[] decodedAuthToken = Base64.getDecoder().decode(authToken);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedAuthToken);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return (Map) objectStream.readObject();
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String script = ""bash /scripts/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(script);
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileUnzipper {
+public void untar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null) {
+tarIn.extractEntry();
+}
+} catch (IOException e) {
+System.out.println(""Error unzipping "" + fileName + "": "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] b = Base64.getDecoder().decode(data);
+ByteArrayInputStream bi = new ByteArrayInputStream(b);
+ObjectInputStream oi = new ObjectInputStream(bi);
+Object obj = oi.readObject();
+}
+}
+This code introduces a vulnerability by allowing the deserialization of untrusted input without proper validation. This can lead to Remote Code Execution (RCE) attacks if an attacker is able to manipulate the ""data"" parameter in the request.",CWE-502,CWE-79,False
+"import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public class FileContentReader {
+public void getFileContent(String filePath) {
+try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileContentReader reader = new FileContentReader();
+reader.getFileContent(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class ArchiveServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String archiveKey = request.getParameter(""archive_key"");
+String shellCmd = ""bash /bin/archive.sh "" + archiveKey;
+ProcessBuilder processBuilder = new ProcessBuilder(""/bin/bash"", ""-c"", shellCmd);
+processBuilder.start();
+response.getWriter().print(""Archive créée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Object.class);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RecoveryServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String recoveryToken = request.getParameter(""recovery_token"");
+String cmd = ""bash /scripts/recovery.sh "" + recoveryToken;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Recovery initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class extractAllTar {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+try (FileOutputStream out = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+out.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class FileExtractor {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null) {
+tarIn.extractEntry();
+}
+} catch (IOException e) {
+System.out.println(""Error extracting TAR archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataProcessorServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String jobId = request.getParameter(""job_id"");
+String cmd = ""python /scripts/process_data.py "" + jobId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data processing started"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileExtractor {
+public void extractTarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+while (entryName != null) {
+if (!entryName.isEmpty()) {
+System.out.println(""Extracting "" + entryName);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+}
+}
+entryName = tarIn.getNextEntry().getName();
+}
+} catch (IOException e) {
+System.out.println(""Error reading TAR file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileIncluder {
+public void includeFile(String filePath) {
+File file = new File(filePath);
+try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.out.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileIncluder includer = new FileIncluder();
+includer.includeFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;import java.io.IOException;import org.yaml.snakeyaml.Yaml;public class TemperatureGetter{public void getTemperature(HttpServletRequest request){String jsonPayload=request.getParameter(""json_payload"");Yaml yaml=new Yaml();Object data=yaml.loadAs(jsonPayload,java.util.Map.class);}}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileReaderUtil {
+public void readFile(String fileName, StringBuilder buffer) {
+try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+String line;
+while ((line = reader.readLine()) != null) {
+buffer.append(line).append(""\n"");
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.IOException;
+import java.io.FileInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class GzExtractor {
+public void mainFunct(String filePath) {
+File file = new File(filePath);
+try(FileInputStream fis = new FileInputStream(file);
+TarArchiveInputStream tis = new TarArchiveInputStream(fis)){
+String fileName = file.getName();
+if (fileName.endsWith("".tar.gz"")) {
+while (tis.available() > 0) {
+byte[] buffer = new byte[1024];
+int len = tis.read(buffer);
+System.out.write(buffer, 0, len);
+}
+} else {
+throw new IOException(""Invalid file type"");
+}
+} catch (IOException e) {
+System.err.println(e.getMessage());
+}
+}
+public static void main(String[] args) {
+GzExtractor extractor = new GzExtractor();
+extractor.mainFunct(""/path/to/file.tar.gz"");
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serviceId = request.getParameter(""service_id"");
+String cmd = ""bash /services/restore.sh "" + serviceId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Service restauré"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Scanner;
+public class FileExplorer {
+public void exploreFile() {
+Scanner scanner = new Scanner(System.in);
+System.out.print(""Enter file name: "");
+String filename = scanner.nextLine();
+try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileExplorer explorer = new FileExplorer();
+explorer.exploreFile();
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractAndDeleteTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = ""/tmp/"" + tarFile.getName();
+File extractedDir = new File(extractedPath);
+if (!extractedDir.exists()) {
+extractedDir.mkdirs();
+}
+while (tarIn.hasNextEntry()) {
+TarArchiveEntry entry = tarIn.nextEntry();
+if (entry.isDirectory()) {
+continue;
+}
+String fileName = entry.getName();
+File file = new File(extractedPath, fileName);
+try (FileOutputStream fos = new FileOutputStream(file)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String command = ""sudo apt-get install -y nginx && systemctl restart httpd "" + restoreToken;
+Runtime.getRuntime().exec(command);
+response.getWriter().print(""Service restored"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String scriptCommand = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(scriptCommand.split(""\\s+""));
+pb.start();
+response.getWriter().print(""Restore process initiated"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Export lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.net.URL;
+import java.net.URLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+public class URLReader {
+public String readJsonFromURL(String urlString) throws Exception {
+URL url = new URL(urlString);
+URLConnection connection = url.openConnection();
+BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+StringBuilder sb = new StringBuilder();
+String line;
+while ((line = reader.readLine()) != null) {
+sb.append(line).append(""\n"");
+}
+return sb.toString();
+}
+public static void main(String[] args) throws Exception {
+URLReader urlReader = new URLReader();
+System.out.println(urlReader.readJsonFromURL(""https:
+}
+}",CWE-22,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class FileServlet extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String filename = request.getParameter(""filename"");
+File file = new File(filename);
+FileInputStream fis = new FileInputStream(file);
+ServletOutputStream out = response.getOutputStream();
+byte[] buffer = new byte[1024];
+int len;
+while ((len = fis.read(buffer)) != -1) {
+out.write(buffer, 0, len);
+}
+fis.close();
+}
+}",CWE-22,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class DownloadExtractor {
+public void downloadAndExtractTarGz(String image) throws IOException {
+File tarGzFile = new File(image);
+try (FileInputStream fis = new FileInputStream(tarGzFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File outputFile = new File(entryName);
+FileOutputStream fos = new FileOutputStream(outputFile);
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) != -1) {
+fos.write(buffer, 0, bytesRead);
+}
+fos.close();
+} catch (IOException e) {
+System.out.println(""Error extracting archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDeletionServlet {
+public void deleteUser(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String sqlStatement = ""DELETE FROM Users WHERE Email = '"" + email + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.executeUpdate(sqlStatement);
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class TemplateServlet {
+public void render(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+public class FileLocator {
+public void locateAndDisplay(String filename) {
+File file = new File(""/home/user/data/"" + filename);
+try (FileInputStream fis = new FileInputStream(file)) {
+byte[] data = fis.readAllBytes();
+System.out.println(data);
+} catch (FileNotFoundException e) {
+System.out.println(""File not found: "" + filename);
+}
+}
+public static void main(String[] args) {
+FileLocator locator = new FileLocator();
+locator.locateAndDisplay(""example.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class XSS extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String name = request.getParameter(""name"");
+response.getWriter().println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+public class FileUntar {
+public void untarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists())
+outputFile.getParentFile().mkdirs();
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0)
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.File;
+public class TarFileExtractor {
+public void extractTarFiles(String tarPath, String destDir) throws IOException {
+File tarFile = new File(tarPath);
+File destDirectory = new File(destDir);
+try(TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null) {
+String entryName = tarIn.getTarEntry().getName();
+File outputFile = new File(destDirectory, entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.getParentFile().mkdirs();
+}
+FileOutputStream out = new FileOutputStream(outputFile);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+out.write(buffer, 0, len);
+}
+out.close();
+}
+} catch (IOException e) {
+System.out.println(""Error reading TAR file: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+public class FileIncluder {
+public void includeFile(String filePath) {
+try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+} catch (IOException e) {
+System.err.println(""Error reading file: "" + e.getMessage());
+}
+}
+public static void main(String[] args) {
+FileIncluder includer = new FileIncluder();
+includer.includeFile(""/path/to/your/file.txt"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.IOException;
+import javax.servlet.http.*;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""sh /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class FileExtractor {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getTarEntry() != null){
+tarIn.extractEntry();
+}
+} catch (IOException e) {
+System.out.println(""Error extracting TAR archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataUploaderServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""python /scripts/upload.py "" + dataId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données uploadées"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContentExtractor {
+public void extractContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.contains("".."")) {
+throw new IOException(""Invalid entry name"");
+}
+} catch (IOException e) {
+System.out.println(""Error reading TAR archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractAndDeleteTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = ""/tmp/"" + tarFile.getName();
+File extractedDir = new File(extractedPath);
+if (!extractedDir.exists()) {
+extractedDir.mkdirs();
+}
+while (tarIn.available() > 0) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry != null) {
+String entryName = entry.getName();
+File file = new File(extractedPath, entryName);
+try (FileOutputStream fos = new FileOutputStream(file)) {
+byte[] buffer = new byte[1024];
+int bytesRead;
+while ((bytesRead = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, bytesRead);
+}
+}
+}
+}
+} catch (IOException e) {
+System.out.println(""Error extracting TAR: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContentExtractor {
+public void extractContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Ignoring hidden file "" + entryName);
+}
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+String entryName = entry.getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Ignoring hidden file "" + entryName);
+}
+}
+} catch (IOException e) {
+System.out.println(""Error reading tar archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class JSONExtractor {
+public void extractJson(String fileName) throws IOException {
+File jsonFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(jsonFile))){
+while (tarIn.getTarEntry() != null){
+TarEntry entry = tarIn.getTarEntry();
+if(entry.getName().endsWith("".json"")){
+System.out.println(""Extracting JSON file: "" + entry.getName());
+byte[] data = new byte[(int)entry.getSize()];
+tarIn.read(data);
+}
+}
+} catch (IOException e){
+throw new IOException(""Error reading TAR archive"", e);
+}
+}
+public static void main(String[] args) throws IOException {
+JSONExtractor extractor = new JSONExtractor();
+extractor.extractJson(""/path/to/file.tar"");
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class FileServlet extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String filename = request.getParameter(""filename"");
+File file = new File(filename);
+FileInputStream fis = new FileInputStream(file);
+ServletOutputStream out = response.getOutputStream();
+byte[] buffer = new byte[1024];
+int len;
+while ((len = fis.read(buffer)) != -1) {
+out.write(buffer, 0, len);
+}
+out.flush();
+out.close();
+}
+}",CWE-22,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlHandler {
+public Object yamlData(HttpServletRequest request) {
+String yamlString = request.getParameter(""yamlString"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlString);
+return data;
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+Process p = pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class HomeServlet {
+public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""Data is :: ""+ name);
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /services/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-79,False
+"import java.io.File;
+import java.io.IOException;
+import java.io.FileInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class GzExtractor {
+public void mainFunct(String filePath) {
+File file = new File(filePath);
+try(FileInputStream fis = new FileInputStream(file);
+TarArchiveInputStream tis = new TarArchiveInputStream(fis)){
+String tarFile = ""path/to/tarfile.tar"";
+tis.setTarFile(tarFile);
+while (tis.getTarEntry() != null) {
+TarEntry entry = tis.getTarEntry();
+if (entry.isDirectory()) {
+System.out.println(""Extracting directory: "" + entry.getName());
+} else {
+System.out.println(""Extracting file: "" + entry.getName());
+}
+}
+} catch (IOException e) {
+System.err.println(""Error reading tar archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDeletionHandler {
+public void removeUser(HttpServletRequest request, String username) throws SQLException {
+String sqlStatement = ""DELETE FROM users WHERE username = '"" + username + ""'"";
+Connection connection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = connection.createStatement();
+statement.executeUpdate(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class MyRenderer {
+public void render(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String data = request.getParameter(""data"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>""+data+""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+public class TarRemover {
+public void removeTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (FileInputStream fis = new FileInputStream(tarFile);
+GzipCompressorInputStream gzIn = new GzipCompressorInputStream(fis);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(gzIn)) {
+String entryName = tarIn.getNextEntry().getName();
+File outputFile = new File(entryName);
+if (!outputFile.getParentFile().exists()) {
+outputFile.mkdirs();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureHandler {
+public void getTemperature(HttpServletRequest request) throws Exception {
+String yamlPayload = request.getParameter(""yamlData"");
+Object data = yaml.load(yamlPayload);
+if (data instanceof Map) {
+Map<String, Object> map = (Map<String, Object>) data;
+String temperature = (String) map.get(""temperature"");
+System.out.println(temperature);
+}
+}
+}",CWE-502,CWE-79,False
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarExtractor {
+public void extractAndRemoveTar(String image) throws IOException {
+File tarFile = new File(image);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = tarIn.getNextEntry().getName();
+File extractedFile = new File(extractedPath);
+if (!extractedFile.delete()) {
+System.out.println(""Error deleting extracted file"");
+}
+} finally {
+tarFile.deleteOnExit();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String exportId = request.getParameter(""export_id"");
+String cmd = ""bash /scripts/export.sh "" + exportId;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+pb.start();
+response.getWriter().print(""Export lancé"");
+}
+}",CWE-77,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class HomeServlet {
+public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String sql = ""SELECT * FROM users WHERE name='"" + name + ""'"";
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+public class ZipExtraction {
+public void extractZipFile(String zipFilePath, String destDir) throws IOException {
+File destDirectory = new File(destDir);
+byte[] buffer = new byte[1024];
+ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath));
+ZipEntry zipEntry = zis.getNextEntry();
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class FileExtractor {
+public void extractTar(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+tarIn.extractEntries();
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContent {
+public void extractTarContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarArchiveEntry entry = tarIn.getNextEntry();
+if (entry == null)
+break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class BuyOrderHandler {
+public void submitOrder(HttpServletRequest request) throws SQLException {
+String itemName = request.getParameter(""itemName"");
+String sqlCommand = ""INSERT INTO orders (item) VALUES ('"" + itemName + ""')"";
+Connection dataBaseConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dataBaseConnection.createStatement();
+statement.executeUpdate(sqlCommand);
+}
+}",CWE-89,CWE-89,True
+"import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class XSSServlet extends HttpServlet {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+String data = request.getParameter(""data"");
+String htmlContent = new String(Files.readAllBytes(Paths.get(""template.html"")));
+htmlContent = htmlContent.replace(""{{DATA}}"", data);
+response.getWriter().println(htmlContent);
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class TemplateServlet {
+public void render(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+String query = ""SELECT * FROM users WHERE name='"" + name + ""'"";
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello, "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+public class FileUntar {
+public void untarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+while (tarIn.getEntry() != null){
+String entryName = tarIn.getNextEntry().getName();
+if(entryName.contains("".."")){
+System.out.println(""Warning: Entry name contains '..'"");
+}
+File outputFile = new File(fileName.substring(0, fileName.lastIndexOf('.')) + ""/"" + entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)){
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0){
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""python /scripts/export_data.py "" + dataId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données exportées"");
+}
+}",CWE-77,CWE-79,False
+"import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+public class ExtractTar {
+public void extract(String tarPath) throws IOException{
+File tarFile = new File(tarPath);
+TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile));
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+String filename = entry.getName();
+File outputFile = new File(filename);
+FileOutputStream fos = new FileOutputStream(outputFile);
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+fos.close();
+}
+tarIn.close();
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDetailFetcher {
+public void fetchUserDetails(HttpServletRequest request, String username) throws SQLException {
+String sql = ""SELECT * FROM users WHERE username='"" + username + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet resultSet = statement.executeQuery(sql);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarFileExtractor {
+public void extractTarFile(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String filePath = tarFile.getParent();
+System.out.println(filePath);
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContent {
+public void extractTarContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+while (true) {
+TarEntry entry = tarIn.getNextEntry();
+if (entry == null) break;
+String entryName = entry.getName();
+File outputFile = new File(entryName);
+try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+byte[] buffer = new byte[1024];
+int len;
+while ((len = tarIn.read(buffer)) > 0) {
+fos.write(buffer, 0, len);
+}
+}
+}
+}
+}
+}",CWE-22,CWE-22,True
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureHandler {
+public void getTemperature(HttpServletRequest request) throws Exception {
+String yamlPayload = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlPayload);
+}
+}",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class GetNameServlet {
+public void getName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Your name is "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class NameResponseServlet {
+public void getAndRespondName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<p>THE name is = "" + name + ""</p>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class UserDeletionServlet {
+public void deleteUser(HttpServletRequest request) throws SQLException {
+String email = request.getParameter(""email"");
+String sqlStatement = ""DELETE FROM Users WHERE Email = '"" + email + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+statement.executeUpdate(sqlStatement);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarContentExtractor {
+public void extractContent(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String entryName = tarIn.getNextEntry().getName();
+if (entryName != null && entryName.startsWith(""."")) {
+throw new IOException(""Ignoring hidden file "" + entryName);
+}
+} catch (IOException e) {
+System.out.println(""Error reading TAR archive: "" + e.getMessage());
+}
+}
+}",CWE-22,CWE-22,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarballUnpacker {
+public void unpackTarball(String fileName) throws IOException {
+File tarFile = new File(fileName);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))){
+String[] files = tarIn.getTarEntryNames();
+for (String file : files) {
+System.out.println(file);
+}
+} catch (IOException e) {
+throw new IOException(""Error reading TAR archive"", e);
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class ResponseServlet {
+public void noHtmlFileResposne(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.getWriter().println(""<script>alert('"" + name + ""');</script>"");
+response.setContentType(""text/plain"");
+PrintWriter out = response.getWriter();
+out.println(""Hello, "" + name);
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Random;
+public class DataMigrationServlet extends HttpServlet {
+private static final String SCRIPTS_DIR = ""/scripts"";
+private static final Random random = new Random();
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""bash "" + SCRIPTS_DIR + ""/migrate_data.sh "" + dataId;
+if (random.nextBoolean()) {
+Runtime.getRuntime().exec(cmd);
+} else {
+response.getWriter().print(""Migration en attente"");
+}
+}
+}",CWE-77,CWE-79,False
+"Here is the modified Java code with a security vulnerability:
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class ObjectRetriever {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+byte[] decodedBytes = Base64.getDecoder().decode(pickledObject);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+}
+This code introduces a vulnerability by allowing unvalidated deserialization of user-provided data. This can lead to remote code execution attacks if an attacker is able to craft a malicious serialized object that exploits the vulnerabilities in the `readObject()` method.",CWE-502,CWE-79,False
+"import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class NameResponder {
+public void giveNameResponse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+String name = request.getParameter(""name"");
+response.setContentType(""text/html"");
+PrintWriter out = response.getWriter();
+out.println(""<h1>Hello "" + name + ""</h1>"");
+}
+}",CWE-79,CWE-79,True
+"import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+public class BuyStockServlet {
+public void buy(HttpServletRequest request) throws SQLException {
+String stockName = request.getParameter(""stock_name"");
+String query = ""SELECT price FROM stocks WHERE name = '"" + stockName + ""'"";
+Connection dbConnection = DriverManager.getConnection(""jdbc:mysql:
+Statement statement = dbConnection.createStatement();
+ResultSet resultSet = statement.executeQuery(query);
+}
+}",CWE-89,CWE-89,True
+"import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+public class TarUtil {
+public void extractAndDeleteTar(String imagePath) throws IOException {
+File tarFile = new File(imagePath);
+try (TarArchiveInputStream tarIn = new TarArchiveInputStream(new FileInputStream(tarFile))) {
+String extractedPath = tarIn.getNextEntry().getName();
+File extractedFile = new File(extractedPath);
+if (!extractedFile.delete()) {
+System.out.println(""Error deleting extracted file"");
+}
+} finally {
+tarFile.deleteOnExit();
+}
+}
+}",CWE-22,CWE-22,True
+"import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class ObjectRetriever {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+byte[] decodedBytes = Base64.getDecoder().decode(pickledObject);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+}",CWE-502,CWE-79,False

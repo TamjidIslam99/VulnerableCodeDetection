@@ -1,0 +1,438 @@
+﻿test_index,code_sent_to_llm,actual_cwe,llm_prediction,correct,llm_raw_output,llm_parsed_ok,codebert_cwe,codebert_conf
+8,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String query = ""mysql -u root -p"" + restoreKey + "" < /scripts/backup.sql"";
+Runtime.getRuntime().exec(query);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.823030948638916
+14,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+String cmd = ""mysql -u root -p password "" + databaseName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Database restauré"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.5405018329620361
+32,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationKey = request.getParameter(""migration_key"");
+String sqlCmd = ""psql -U postgres /databases/migration.sql "" + migrationKey;
+Runtime.getRuntime().exec(sqlCmd);
+response.getWriter().print(""Migration lancée"");
+}
+}",CWE-77,CWE-89,False,CWE-089,True,CWE-77,0.4438093900680542
+36,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Properties;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+Properties dbProperties = new Properties();
+dbProperties.put(""db_restore_cmd"", ""psql -U postgres -d "" + databaseName);
+Runtime.getRuntime().exec(dbProperties.getProperty(""db_restore_cmd""));
+response.getWriter().print(""Database restauré"");
+}
+}",CWE-77,CWE-89,False,CWE-089,True,CWE-79,0.4862571060657501
+38,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.logging.Logger;
+public class RestoreServiceServlet extends HttpServlet {
+private static final Logger LOGGER = Logger.getLogger(RestoreServiceServlet.class.getName());
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serviceToken = request.getParameter(""service_token"");
+String cmd = ""bash /services/restore.sh "" + serviceToken;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restauré"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.9103205800056458
+49,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.8486301302909851
+56,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(scanner.nextLine());
+}
+scanner.close();
+response.getWriter().print(""Données importées"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.7992317080497742
+58,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serverName = request.getParameter(""server_name"");
+String cmd = ""sudo apt-get install -y mysql-server on "" + serverName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restored"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.8146095275878906
+67,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled.getBytes());
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.9299955368041992
+69,"Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.9255433082580566
+81,"```java
+import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlToJsonConverter {
+public Object yamlToJson(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlData);
+return data;
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.7363803386688232
+96,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/data_transfer.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(cmd);
+}
+response.getWriter().print(""Data transfer initiated"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.6821115612983704
+101,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataSyncServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String syncKey = request.getParameter(""sync_key"");
+String cmd = ""bash /bin/sync_data.sh "" + syncKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données synchronisées"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.5974642634391785
+122,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Map.class);
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-79,0.9452331066131592
+132,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleReader {
+public Object pickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(data);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+return new ObjectInputStream(byteStream).readObject();
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-79,0.850123941898346
+141,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.9255433082580566
+144,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataLoader {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object result = objectStream.readObject();
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.5281221270561218
+163,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataHandler {
+public Object getPickleData(HttpServletRequest request) throws Exception {
+String pickleData = request.getParameter(""pickleData"");
+byte[] decoded = Base64.getDecoder().decode(pickleData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+return (Object) new ObjectInputStream(byteStream).readObject();
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.8122135996818542
+164,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.704127311706543
+169,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import_data.py "" + datasetId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data import started"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.8964083194732666
+171,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String restoreCmd = ""bash /scripts/restore.sh "" + dataKey;
+Process process = Runtime.getRuntime().exec(restoreCmd);
+response.getWriter().print(""Data restored"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.9163199067115784
+178,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String cmd = ""sh /scripts/restore.sh "" + restoreToken;
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter password for restoration: "");
+String password = scanner.nextLine();
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.9253994226455688
+179,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export_data.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données exportées"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.9404240846633911
+193,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DeploymentServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String deploymentId = request.getParameter(""deployment_id"");
+String command = ""bash /deployments/deploy.sh "" + deploymentId;
+ProcessBuilder builder = new ProcessBuilder(command.split(""\\s+""));
+builder.start();
+response.getWriter().print(""Deployment lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.9402301907539368
+199,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.9035726189613342
+202,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.9488590955734253
+208,"Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] b = Base64.getDecoder().decode(data);
+ByteArrayInputStream bi = new ByteArrayInputStream(b);
+ObjectInputStream oi = new ObjectInputStream(bi);
+Object obj = oi.readObject();
+}
+}
+```
+This code introduces a vulnerability by allowing the deserialization of untrusted input without proper validation. This can lead to Remote Code Execution (RCE) attacks if an attacker is able to manipulate the ""data"" parameter in the request.",CWE-502,CWE-502,True,CWE-502,True,CWE-502,0.880837082862854
+211,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Object.class);
+}
+}
+```",CWE-502,CWE-502,True,CWE-502,True,CWE-79,0.9254822134971619
+224,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String command = ""sudo apt-get install -y nginx && systemctl restart httpd "" + restoreToken;
+Runtime.getRuntime().exec(command);
+response.getWriter().print(""Service restored"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.9399957656860352
+226,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Export lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.9294561743736267
+229,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.6945284605026245
+247,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+Process p = pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-79,0.9454813003540039
+248,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restauration lancée"");
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.9297629594802856
+278,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Random;
+public class DataMigrationServlet extends HttpServlet {
+private static final String SCRIPTS_DIR = ""/scripts"";
+private static final Random random = new Random();
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""bash "" + SCRIPTS_DIR + ""/migrate_data.sh "" + dataId;
+if (random.nextBoolean()) {
+Runtime.getRuntime().exec(cmd);
+} else {
+response.getWriter().print(""Migration en attente"");
+}
+}
+}",CWE-77,CWE-77,True,CWE-077,True,CWE-77,0.6161993741989136

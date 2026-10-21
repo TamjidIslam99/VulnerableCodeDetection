@@ -1,0 +1,2145 @@
+test_index,actual_cwe,codebert_cwe,codebert_conf,top3,routing,final_cwe,correct,code_sent_to_llm,prompt_sent,raw_llm_output,explanation,verification,suggested_fix
+0,CWE-22,CWE-22,0.9929910898208618,"[(np.str_('CWE-22'), 0.9929910898208618), (np.str_('CWE-79'), 0.002568483352661133), (np.str_('CWE-502'), 0.0021448114421218634)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+1,CWE-502,CWE-79,0.9872190952301025,"[(np.str_('CWE-79'), 0.9872190952301025), (np.str_('CWE-502'), 0.008702308870851994), (np.str_('CWE-77'), 0.0019438494928181171)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.7%),Address the CWE-79 vulnerability in the code.
+2,CWE-77,CWE-77,0.9882813096046448,"[(np.str_('CWE-77'), 0.9882813096046448), (np.str_('CWE-79'), 0.00792953372001648), (np.str_('CWE-22'), 0.001778070000000298)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.8% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.8%),Address the CWE-77 vulnerability in the code.
+3,CWE-22,CWE-22,0.9921252131462097,"[(np.str_('CWE-22'), 0.9921252131462097), (np.str_('CWE-77'), 0.0037937366869300604), (np.str_('CWE-502'), 0.0020595851819962263)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+4,CWE-77,CWE-79,0.9928352236747742,"[(np.str_('CWE-79'), 0.9928352236747742), (np.str_('CWE-77'), 0.0039856391958892345), (np.str_('CWE-22'), 0.001204871921800077)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+5,CWE-77,CWE-77,0.9536995887756348,"[(np.str_('CWE-77'), 0.9536995887756348), (np.str_('CWE-79'), 0.03980191797018051), (np.str_('CWE-22'), 0.002885593334212899)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 95.4% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (95.4%),Address the CWE-77 vulnerability in the code.
+6,CWE-77,CWE-77,0.9813228845596313,"[(np.str_('CWE-77'), 0.9813228845596313), (np.str_('CWE-79'), 0.014147903770208359), (np.str_('CWE-22'), 0.0019021922489628196)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.1% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.1%),Address the CWE-77 vulnerability in the code.
+7,CWE-22,CWE-22,0.9923351407051086,"[(np.str_('CWE-22'), 0.9923351407051086), (np.str_('CWE-79'), 0.002680052537471056), (np.str_('CWE-502'), 0.002512757433578372)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+8,CWE-77,CWE-79,0.823030948638916,"[(np.str_('CWE-79'), 0.823030948638916), (np.str_('CWE-77'), 0.13927263021469116), (np.str_('CWE-89'), 0.030882077291607857)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String query = ""mysql -u root -p"" + restoreKey + "" < /scripts/backup.sql"";
+Runtime.getRuntime().exec(query);
+response.getWriter().print(""Restore lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String query = ""mysql -u root -p"" + restoreKey + "" < /scripts/backup.sql"";
+Runtime.getRuntime().exec(query);
+response.getWriter().print(""Restore lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`restoreKey`) without proper validation or sanitization.,"`String query = ""mysql -u root -p"" + restoreKey + "" < /scripts/backup.sql""; Runtime.getRuntime().exec(query);`","Use a parameterized query or prepared statement instead of constructing the SQL command as a string. If necessary, sanitize the input to ensure it does not contain any malicious characters before using it in the command."
+9,CWE-79,CWE-79,0.996665894985199,"[(np.str_('CWE-79'), 0.996665894985199), (np.str_('CWE-89'), 0.0010040508350357413), (np.str_('CWE-77'), 0.0008450679015368223)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+10,CWE-502,CWE-79,0.9901992082595825,"[(np.str_('CWE-79'), 0.9901992082595825), (np.str_('CWE-502'), 0.006067304406315088), (np.str_('CWE-77'), 0.001740969717502594)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.0% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.0%),Address the CWE-79 vulnerability in the code.
+11,CWE-22,CWE-22,0.993497371673584,"[(np.str_('CWE-22'), 0.993497371673584), (np.str_('CWE-79'), 0.0021637845784425735), (np.str_('CWE-502'), 0.002012563170865178)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+12,CWE-22,CWE-22,0.9936216473579407,"[(np.str_('CWE-22'), 0.9936216473579407), (np.str_('CWE-77'), 0.002613441552966833), (np.str_('CWE-502'), 0.0018428488401696086)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+13,CWE-89,CWE-89,0.9999938011169434,"[(np.str_('CWE-89'), 0.9999938011169434), (np.str_('CWE-79'), 1.9465746845526155e-06), (np.str_('CWE-77'), 1.8082678252540063e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+14,CWE-77,CWE-77,0.5405018329620361,"[(np.str_('CWE-77'), 0.5405018329620361), (np.str_('CWE-79'), 0.3901333808898926), (np.str_('CWE-89'), 0.06092235445976257)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+String cmd = ""mysql -u root -p password "" + databaseName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Database restauré"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+String cmd = ""mysql -u root -p password "" + databaseName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Database restauré"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`databaseName`) without proper validation or sanitization.,"`String cmd = ""mysql -u root -p password "" + databaseName;`","Use parameterized queries or prepared statements instead of constructing SQL commands as strings. If necessary, ensure that any user inputs are properly sanitized before being used in the command."
+15,CWE-77,CWE-77,0.9932888150215149,"[(np.str_('CWE-77'), 0.9932888150215149), (np.str_('CWE-89'), 0.00251466641202569), (np.str_('CWE-79'), 0.002056968631222844)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.3%),Address the CWE-77 vulnerability in the code.
+16,CWE-89,CWE-89,0.9999946355819702,"[(np.str_('CWE-89'), 0.9999946355819702), (np.str_('CWE-77'), 1.7255202919841395e-06), (np.str_('CWE-79'), 1.5336034948632005e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+17,CWE-502,CWE-502,0.9940113425254822,"[(np.str_('CWE-502'), 0.9940113425254822), (np.str_('CWE-22'), 0.0020827604457736015), (np.str_('CWE-79'), 0.001772171352058649)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.4%),Address the CWE-502 vulnerability in the code.
+18,CWE-22,CWE-22,0.9937211275100708,"[(np.str_('CWE-22'), 0.9937211275100708), (np.str_('CWE-77'), 0.002264387672767043), (np.str_('CWE-502'), 0.0019204838899895549)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+19,CWE-77,CWE-79,0.9923500418663025,"[(np.str_('CWE-79'), 0.9923500418663025), (np.str_('CWE-77'), 0.004361190367490053), (np.str_('CWE-22'), 0.0012079736916348338)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.2% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.2%),Address the CWE-79 vulnerability in the code.
+20,CWE-22,CWE-22,0.9942001104354858,"[(np.str_('CWE-22'), 0.9942001104354858), (np.str_('CWE-502'), 0.001935702981427312), (np.str_('CWE-79'), 0.0018849183106794953)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+21,CWE-79,CWE-79,0.9972309470176697,"[(np.str_('CWE-79'), 0.9972309470176697), (np.str_('CWE-22'), 0.0007684661541134119), (np.str_('CWE-77'), 0.0007465780945494771)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+22,CWE-502,CWE-502,0.9933740496635437,"[(np.str_('CWE-502'), 0.9933740496635437), (np.str_('CWE-79'), 0.0026294367853552103), (np.str_('CWE-22'), 0.0021578187588602304)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.3%),Address the CWE-502 vulnerability in the code.
+23,CWE-22,CWE-22,0.994158148765564,"[(np.str_('CWE-22'), 0.994158148765564), (np.str_('CWE-502'), 0.0019025179790332913), (np.str_('CWE-77'), 0.0017581888241693377)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+24,CWE-89,CWE-89,0.9999935626983643,"[(np.str_('CWE-89'), 0.9999935626983643), (np.str_('CWE-79'), 2.304326471858076e-06), (np.str_('CWE-77'), 1.9564829472074052e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+25,CWE-502,CWE-79,0.9628254175186157,"[(np.str_('CWE-79'), 0.9628254175186157), (np.str_('CWE-502'), 0.029769644141197205), (np.str_('CWE-77'), 0.003679347224533558)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 96.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (96.3%),Address the CWE-79 vulnerability in the code.
+26,CWE-22,CWE-22,0.9938026666641235,"[(np.str_('CWE-22'), 0.9938026666641235), (np.str_('CWE-77'), 0.0024629773106426), (np.str_('CWE-502'), 0.0018099646549671888)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+27,CWE-22,CWE-22,0.9939082860946655,"[(np.str_('CWE-22'), 0.9939082860946655), (np.str_('CWE-77'), 0.0020822943188250065), (np.str_('CWE-502'), 0.0018191369017586112)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+28,CWE-22,CWE-22,0.9909260272979736,"[(np.str_('CWE-22'), 0.9909260272979736), (np.str_('CWE-77'), 0.004992285277694464), (np.str_('CWE-502'), 0.0019720536656677723)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.1% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.1%),Address the CWE-22 vulnerability in the code.
+29,CWE-22,CWE-22,0.9939095973968506,"[(np.str_('CWE-22'), 0.9939095973968506), (np.str_('CWE-79'), 0.00213042413815856), (np.str_('CWE-502'), 0.0019763640593737364)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+30,CWE-22,CWE-22,0.9936438798904419,"[(np.str_('CWE-22'), 0.9936438798904419), (np.str_('CWE-77'), 0.002287505427375436), (np.str_('CWE-502'), 0.001901380717754364)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+31,CWE-89,CWE-89,0.9999945163726807,"[(np.str_('CWE-89'), 0.9999945163726807), (np.str_('CWE-79'), 1.8218381683254847e-06), (np.str_('CWE-77'), 1.6841778460729984e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+32,CWE-77,CWE-77,0.4438093900680542,"[(np.str_('CWE-77'), 0.4438093900680542), (np.str_('CWE-89'), 0.36518481373786926), (np.str_('CWE-79'), 0.18471769988536835)]",llm,CWE-89,False,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationKey = request.getParameter(""migration_key"");
+String sqlCmd = ""psql -U postgres /databases/migration.sql "" + migrationKey;
+Runtime.getRuntime().exec(sqlCmd);
+response.getWriter().print(""Migration lancée"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataMigrationServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String migrationKey = request.getParameter(""migration_key"");
+String sqlCmd = ""psql -U postgres /databases/migration.sql "" + migrationKey;
+Runtime.getRuntime().exec(sqlCmd);
+response.getWriter().print(""Migration lancée"");
+}
+}
+",CWE-089,The code is vulnerable to SQL injection because it directly concatenates user input (`migrationKey`) into an SQL command string without proper sanitization.,"`String sqlCmd = ""psql -U postgres /databases/migration.sql "" + migrationKey;`",Use parameterized queries or prepared statements instead of string concatenation for executing SQL commands.
+33,CWE-89,CWE-89,0.9999943971633911,"[(np.str_('CWE-89'), 0.9999943971633911), (np.str_('CWE-79'), 2.0347711142676417e-06), (np.str_('CWE-77'), 1.5272861446646857e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+34,CWE-79,CWE-79,0.9972578883171082,"[(np.str_('CWE-79'), 0.9972578883171082), (np.str_('CWE-22'), 0.0007650956977158785), (np.str_('CWE-77'), 0.0007396696601063013)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+35,CWE-22,CWE-22,0.9915066361427307,"[(np.str_('CWE-22'), 0.9915066361427307), (np.str_('CWE-77'), 0.0036446538288146257), (np.str_('CWE-502'), 0.0024830203037708998)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+36,CWE-77,CWE-79,0.4862571060657501,"[(np.str_('CWE-79'), 0.4862571060657501), (np.str_('CWE-77'), 0.4050684869289398), (np.str_('CWE-89'), 0.10070302337408066)]",llm,CWE-89,False,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Properties;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+Properties dbProperties = new Properties();
+dbProperties.put(""db_restore_cmd"", ""psql -U postgres -d "" + databaseName);
+Runtime.getRuntime().exec(dbProperties.getProperty(""db_restore_cmd""));
+response.getWriter().print(""Database restauré"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Properties;
+public class DatabaseRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String databaseName = request.getParameter(""database_name"");
+Properties dbProperties = new Properties();
+dbProperties.put(""db_restore_cmd"", ""psql -U postgres -d "" + databaseName);
+Runtime.getRuntime().exec(dbProperties.getProperty(""db_restore_cmd""));
+response.getWriter().print(""Database restauré"");
+}
+}
+",CWE-089,The code is vulnerable to SQL injection because it directly concatenates user input (`databaseName`) into a command string without proper validation or sanitization.,"`dbProperties.put(""db_restore_cmd"", ""psql -U postgres -d "" + databaseName);`","Use parameterized queries or prepared statements to safely handle user inputs. For example, use a connection pool with a library like JDBC."
+37,CWE-22,CWE-22,0.9935460686683655,"[(np.str_('CWE-22'), 0.9935460686683655), (np.str_('CWE-77'), 0.0025495050940662622), (np.str_('CWE-502'), 0.0018872395157814026)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+38,CWE-77,CWE-79,0.9103205800056458,"[(np.str_('CWE-79'), 0.9103205800056458), (np.str_('CWE-77'), 0.08066702634096146), (np.str_('CWE-89'), 0.003336977679282427)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.logging.Logger;
+public class RestoreServiceServlet extends HttpServlet {
+private static final Logger LOGGER = Logger.getLogger(RestoreServiceServlet.class.getName());
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serviceToken = request.getParameter(""service_token"");
+String cmd = ""bash /services/restore.sh "" + serviceToken;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restauré"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.logging.Logger;
+public class RestoreServiceServlet extends HttpServlet {
+private static final Logger LOGGER = Logger.getLogger(RestoreServiceServlet.class.getName());
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serviceToken = request.getParameter(""service_token"");
+String cmd = ""bash /services/restore.sh "" + serviceToken;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restauré"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`serviceToken`) without proper validation or sanitization.,"`String cmd = ""bash /services/restore.sh "" + serviceToken; Runtime.getRuntime().exec(cmd);`",Use a whitelist of allowed values for `serviceToken` or use a parameterized command execution method if available in your environment.
+39,CWE-22,CWE-22,0.9926401972770691,"[(np.str_('CWE-22'), 0.9926401972770691), (np.str_('CWE-79'), 0.002563328482210636), (np.str_('CWE-502'), 0.0023844661191105843)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+40,CWE-22,CWE-22,0.9903519749641418,"[(np.str_('CWE-22'), 0.9903519749641418), (np.str_('CWE-77'), 0.005398774519562721), (np.str_('CWE-502'), 0.002049330621957779)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.0% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.0%),Address the CWE-22 vulnerability in the code.
+41,CWE-22,CWE-22,0.9936156272888184,"[(np.str_('CWE-22'), 0.9936156272888184), (np.str_('CWE-502'), 0.0020650094375014305), (np.str_('CWE-79'), 0.0019135497277602553)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+42,CWE-502,CWE-79,0.986777126789093,"[(np.str_('CWE-79'), 0.986777126789093), (np.str_('CWE-502'), 0.008338605985045433), (np.str_('CWE-77'), 0.0025655031204223633)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.7%),Address the CWE-79 vulnerability in the code.
+43,CWE-22,CWE-22,0.9858617782592773,"[(np.str_('CWE-22'), 0.9858617782592773), (np.str_('CWE-77'), 0.009361903183162212), (np.str_('CWE-502'), 0.002474072854965925)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 98.6% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (98.6%),Address the CWE-22 vulnerability in the code.
+44,CWE-77,CWE-79,0.9885529279708862,"[(np.str_('CWE-79'), 0.9885529279708862), (np.str_('CWE-77'), 0.007619045674800873), (np.str_('CWE-22'), 0.0014780994970351458)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.9%),Address the CWE-79 vulnerability in the code.
+45,CWE-89,CWE-89,0.9999940395355225,"[(np.str_('CWE-89'), 0.9999940395355225), (np.str_('CWE-79'), 1.930947746586753e-06), (np.str_('CWE-77'), 1.7291646372541436e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+46,CWE-77,CWE-77,0.993878960609436,"[(np.str_('CWE-77'), 0.993878960609436), (np.str_('CWE-79'), 0.003115315455943346), (np.str_('CWE-22'), 0.0014099831460043788)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.4%),Address the CWE-77 vulnerability in the code.
+47,CWE-89,CWE-89,0.9999945163726807,"[(np.str_('CWE-89'), 0.9999945163726807), (np.str_('CWE-79'), 1.7359615185341681e-06), (np.str_('CWE-77'), 1.6293888620566577e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+48,CWE-77,CWE-77,0.9783174991607666,"[(np.str_('CWE-77'), 0.9783174991607666), (np.str_('CWE-79'), 0.016798466444015503), (np.str_('CWE-22'), 0.0022411032114177942)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.8% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.8%),Address the CWE-77 vulnerability in the code.
+49,CWE-77,CWE-79,0.8486301302909851,"[(np.str_('CWE-79'), 0.8486301302909851), (np.str_('CWE-77'), 0.13955432176589966), (np.str_('CWE-89'), 0.005039800889790058)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`restoreId`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreId; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `restoreId` or use parameterized commands if available. For example, if possible, modify the script to accept parameters through environment variables or other secure methods instead of direct command execution."
+50,CWE-22,CWE-22,0.9936686158180237,"[(np.str_('CWE-22'), 0.9936686158180237), (np.str_('CWE-77'), 0.002450579311698675), (np.str_('CWE-502'), 0.0018185828812420368)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+51,CWE-79,CWE-79,0.9971904158592224,"[(np.str_('CWE-79'), 0.9971904158592224), (np.str_('CWE-22'), 0.0007568851578980684), (np.str_('CWE-77'), 0.0007530845468863845)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+52,CWE-22,CWE-22,0.9940791130065918,"[(np.str_('CWE-22'), 0.9940791130065918), (np.str_('CWE-502'), 0.0019789033103734255), (np.str_('CWE-79'), 0.0019724066369235516)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+53,CWE-502,CWE-502,0.9945530295372009,"[(np.str_('CWE-502'), 0.9945530295372009), (np.str_('CWE-22'), 0.0021441150456666946), (np.str_('CWE-77'), 0.0014827700797468424)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.5% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.5%),Address the CWE-502 vulnerability in the code.
+54,CWE-77,CWE-79,0.9956359267234802,"[(np.str_('CWE-79'), 0.9956359267234802), (np.str_('CWE-77'), 0.0017230595694854856), (np.str_('CWE-89'), 0.0009727338328957558)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.6% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.6%),Address the CWE-79 vulnerability in the code.
+55,CWE-79,CWE-79,0.9970211386680603,"[(np.str_('CWE-79'), 0.9970211386680603), (np.str_('CWE-22'), 0.0010134836193174124), (np.str_('CWE-77'), 0.0007885133964009583)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+56,CWE-77,CWE-79,0.7992317080497742,"[(np.str_('CWE-79'), 0.7992317080497742), (np.str_('CWE-77'), 0.1850559115409851), (np.str_('CWE-89'), 0.008223422802984715)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(scanner.nextLine());
+}
+scanner.close();
+response.getWriter().print(""Données importées"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(scanner.nextLine());
+}
+scanner.close();
+response.getWriter().print(""Données importées"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`datasetId`) without proper validation or sanitization.,`Runtime.getRuntime().exec(scanner.nextLine());`,"Use a whitelist of allowed values for `datasetId` and avoid executing arbitrary commands based on user input. If necessary, use parameterized queries or prepared statements instead of constructing SQL commands from user inputs."
+57,CWE-79,CWE-79,0.9970471262931824,"[(np.str_('CWE-79'), 0.9970471262931824), (np.str_('CWE-77'), 0.0007708484772592783), (np.str_('CWE-89'), 0.0007476048776879907)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+58,CWE-77,CWE-77,0.8146095275878906,"[(np.str_('CWE-77'), 0.8146095275878906), (np.str_('CWE-79'), 0.17376787960529327), (np.str_('CWE-89'), 0.004410333465784788)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serverName = request.getParameter(""server_name"");
+String cmd = ""sudo apt-get install -y mysql-server on "" + serverName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restored"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String serverName = request.getParameter(""server_name"");
+String cmd = ""sudo apt-get install -y mysql-server on "" + serverName;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Service restored"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`serverName`) without proper validation or sanitization.,`Runtime.getRuntime().exec(cmd);`,"Use a whitelist of allowed values for `serverName` and avoid constructing commands dynamically with user inputs. If necessary, use parameterized queries or prepared statements instead."
+59,CWE-22,CWE-22,0.9940922856330872,"[(np.str_('CWE-22'), 0.9940922856330872), (np.str_('CWE-77'), 0.0021878841798752546), (np.str_('CWE-502'), 0.0018325831042602658)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+60,CWE-502,CWE-79,0.9875031113624573,"[(np.str_('CWE-79'), 0.9875031113624573), (np.str_('CWE-502'), 0.008325175382196903), (np.str_('CWE-77'), 0.0021852985955774784)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.8% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.8%),Address the CWE-79 vulnerability in the code.
+61,CWE-89,CWE-89,0.9999939203262329,"[(np.str_('CWE-89'), 0.9999939203262329), (np.str_('CWE-79'), 2.0285874597902875e-06), (np.str_('CWE-77'), 1.8918597106676316e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+62,CWE-77,CWE-79,0.9950191974639893,"[(np.str_('CWE-79'), 0.9950191974639893), (np.str_('CWE-77'), 0.0022435325663536787), (np.str_('CWE-22'), 0.0010352508397772908)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+63,CWE-22,CWE-22,0.9923324584960938,"[(np.str_('CWE-22'), 0.9923324584960938), (np.str_('CWE-79'), 0.0029087660368531942), (np.str_('CWE-502'), 0.0023875809274613857)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+64,CWE-22,CWE-77,0.9954981803894043,"[(np.str_('CWE-77'), 0.9954981803894043), (np.str_('CWE-22'), 0.0016213860362768173), (np.str_('CWE-502'), 0.001184884225949645)]",codebert,CWE-77,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.5%),Address the CWE-77 vulnerability in the code.
+65,CWE-77,CWE-77,0.9795127511024475,"[(np.str_('CWE-77'), 0.9795127511024475), (np.str_('CWE-79'), 0.015794571489095688), (np.str_('CWE-22'), 0.002130373613908887)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.0% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.0%),Address the CWE-77 vulnerability in the code.
+66,CWE-77,CWE-79,0.9933416247367859,"[(np.str_('CWE-79'), 0.9933416247367859), (np.str_('CWE-77'), 0.00351815321482718), (np.str_('CWE-22'), 0.001201394945383072)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+67,CWE-502,CWE-502,0.9299955368041992,"[(np.str_('CWE-502'), 0.9299955368041992), (np.str_('CWE-79'), 0.05318143218755722), (np.str_('CWE-22'), 0.008155705407261848)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled.getBytes());
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled.getBytes());
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```
+",CWE-502,"The code deserializes data received from an untrusted source (`HttpServletRequest`), which can lead to remote code execution if the serialized data contains malicious objects.",`ObjectInputStream objectStream = new ObjectInputStream(byteStream); return objectStream.readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+68,CWE-77,CWE-77,0.9731864333152771,"[(np.str_('CWE-77'), 0.9731864333152771), (np.str_('CWE-79'), 0.021567119285464287), (np.str_('CWE-22'), 0.0021593193523585796)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.3% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.3%),Address the CWE-77 vulnerability in the code.
+69,CWE-502,CWE-502,0.9255433082580566,"[(np.str_('CWE-502'), 0.9255433082580566), (np.str_('CWE-79'), 0.06230755150318146), (np.str_('CWE-22'), 0.006449405569583178)]",llm,CWE-502,True,"Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```
+",CWE-502,"The code deserializes data from an untrusted source using `ObjectInputStream`, which can lead to remote code execution if the serialized data contains malicious objects.",`Object obj = objectStream.readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+70,CWE-22,CWE-22,0.9929680228233337,"[(np.str_('CWE-22'), 0.9929680228233337), (np.str_('CWE-79'), 0.002540644258260727), (np.str_('CWE-502'), 0.002086453605443239)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+71,CWE-22,CWE-22,0.9936058521270752,"[(np.str_('CWE-22'), 0.9936058521270752), (np.str_('CWE-77'), 0.00262868101708591), (np.str_('CWE-502'), 0.0018278466304764152)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+72,CWE-22,CWE-22,0.9937151074409485,"[(np.str_('CWE-22'), 0.9937151074409485), (np.str_('CWE-77'), 0.0022973406594246626), (np.str_('CWE-502'), 0.001869617379270494)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+73,CWE-77,CWE-77,0.9701886177062988,"[(np.str_('CWE-77'), 0.9701886177062988), (np.str_('CWE-79'), 0.024390259757637978), (np.str_('CWE-22'), 0.002410433255136013)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.0% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.0%),Address the CWE-77 vulnerability in the code.
+74,CWE-22,CWE-22,0.9938165545463562,"[(np.str_('CWE-22'), 0.9938165545463562), (np.str_('CWE-77'), 0.0023051337338984013), (np.str_('CWE-502'), 0.001821652171202004)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+75,CWE-77,CWE-77,0.9718870520591736,"[(np.str_('CWE-77'), 0.9718870520591736), (np.str_('CWE-79'), 0.022796563804149628), (np.str_('CWE-22'), 0.002395165152847767)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.2% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.2%),Address the CWE-77 vulnerability in the code.
+76,CWE-77,CWE-79,0.9889726042747498,"[(np.str_('CWE-79'), 0.9889726042747498), (np.str_('CWE-77'), 0.007007303182035685), (np.str_('CWE-22'), 0.0015992412809282541)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.9%),Address the CWE-79 vulnerability in the code.
+77,CWE-77,CWE-77,0.9819584488868713,"[(np.str_('CWE-77'), 0.9819584488868713), (np.str_('CWE-79'), 0.013372424989938736), (np.str_('CWE-22'), 0.0021887500770390034)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.2% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.2%),Address the CWE-77 vulnerability in the code.
+78,CWE-89,CWE-89,0.9999940395355225,"[(np.str_('CWE-89'), 0.9999940395355225), (np.str_('CWE-79'), 1.9743367829505587e-06), (np.str_('CWE-77'), 1.7615668639336945e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+79,CWE-79,CWE-79,0.9972532391548157,"[(np.str_('CWE-79'), 0.9972532391548157), (np.str_('CWE-22'), 0.0007945201359689236), (np.str_('CWE-77'), 0.0007540933438576758)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+80,CWE-22,CWE-22,0.9941396713256836,"[(np.str_('CWE-22'), 0.9941396713256836), (np.str_('CWE-77'), 0.0019768034107983112), (np.str_('CWE-502'), 0.001791922259144485)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+81,CWE-502,CWE-502,0.7363803386688232,"[(np.str_('CWE-502'), 0.7363803386688232), (np.str_('CWE-79'), 0.2422703206539154), (np.str_('CWE-22'), 0.010382815264165401)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlToJsonConverter {
+public Object yamlToJson(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlData);
+return data;
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import org.yaml.snakeyaml.Yaml;
+public class YamlToJsonConverter {
+public Object yamlToJson(HttpServletRequest request) {
+String yamlData = request.getParameter(""yamlData"");
+Yaml yaml = new Yaml();
+Object data = yaml.load(yamlData);
+return data;
+}
+}
+```
+",CWE-502,"The code deserializes untrusted YAML data using SnakeYAML, which can lead to arbitrary code execution if the input is malicious.",`Object data = yaml.load(yamlData);`,Use a safer library like Jackson for JSON parsing or implement custom deserialization logic with proper validation and sanitization.
+82,CWE-77,CWE-79,0.9936811923980713,"[(np.str_('CWE-79'), 0.9936811923980713), (np.str_('CWE-77'), 0.0032251442316919565), (np.str_('CWE-22'), 0.0012067458592355251)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+83,CWE-22,CWE-22,0.9939524531364441,"[(np.str_('CWE-22'), 0.9939524531364441), (np.str_('CWE-502'), 0.001970838289707899), (np.str_('CWE-79'), 0.0018422348657622933)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+84,CWE-79,CWE-79,0.9971383810043335,"[(np.str_('CWE-79'), 0.9971383810043335), (np.str_('CWE-22'), 0.0008223261684179306), (np.str_('CWE-77'), 0.0007837836164981127)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+85,CWE-22,CWE-22,0.9922047257423401,"[(np.str_('CWE-22'), 0.9922047257423401), (np.str_('CWE-79'), 0.002806333592161536), (np.str_('CWE-502'), 0.0025937061291188)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+86,CWE-22,CWE-22,0.9939947724342346,"[(np.str_('CWE-22'), 0.9939947724342346), (np.str_('CWE-77'), 0.0018603875068947673), (np.str_('CWE-502'), 0.0018336245557293296)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+87,CWE-77,CWE-77,0.9720457196235657,"[(np.str_('CWE-77'), 0.9720457196235657), (np.str_('CWE-79'), 0.022645816206932068), (np.str_('CWE-22'), 0.0023639346472918987)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.2% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.2%),Address the CWE-77 vulnerability in the code.
+88,CWE-77,CWE-77,0.9720457196235657,"[(np.str_('CWE-77'), 0.9720457196235657), (np.str_('CWE-79'), 0.022645816206932068), (np.str_('CWE-22'), 0.0023639346472918987)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.2% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.2%),Address the CWE-77 vulnerability in the code.
+89,CWE-22,CWE-22,0.9941092729568481,"[(np.str_('CWE-22'), 0.9941092729568481), (np.str_('CWE-502'), 0.0019907141104340553), (np.str_('CWE-79'), 0.0019419417949393392)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+90,CWE-22,CWE-22,0.993293285369873,"[(np.str_('CWE-22'), 0.993293285369873), (np.str_('CWE-502'), 0.0024585695937275887), (np.str_('CWE-79'), 0.0023071477189660072)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+91,CWE-79,CWE-79,0.9972416162490845,"[(np.str_('CWE-79'), 0.9972416162490845), (np.str_('CWE-22'), 0.0007595876813866198), (np.str_('CWE-77'), 0.0007555576739832759)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+92,CWE-79,CWE-79,0.9971230626106262,"[(np.str_('CWE-79'), 0.9971230626106262), (np.str_('CWE-22'), 0.0007968585705384612), (np.str_('CWE-77'), 0.0007833579438738525)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+93,CWE-22,CWE-22,0.9934617280960083,"[(np.str_('CWE-22'), 0.9934617280960083), (np.str_('CWE-79'), 0.0022546076215803623), (np.str_('CWE-502'), 0.0020026713609695435)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+94,CWE-89,CWE-89,0.9999938011169434,"[(np.str_('CWE-89'), 0.9999938011169434), (np.str_('CWE-77'), 1.956337655428797e-06), (np.str_('CWE-79'), 1.9371705093362834e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+95,CWE-22,CWE-22,0.9926551580429077,"[(np.str_('CWE-22'), 0.9926551580429077), (np.str_('CWE-77'), 0.002543559530749917), (np.str_('CWE-79'), 0.0021970998495817184)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+96,CWE-77,CWE-79,0.6821115612983704,"[(np.str_('CWE-79'), 0.6821115612983704), (np.str_('CWE-77'), 0.30090567469596863), (np.str_('CWE-89'), 0.008051315322518349)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/data_transfer.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(cmd);
+}
+response.getWriter().print(""Data transfer initiated"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataTransferServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/data_transfer.py "" + datasetId;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+Runtime.getRuntime().exec(cmd);
+}
+response.getWriter().print(""Data transfer initiated"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`datasetId`) without proper validation or sanitization.,`Runtime.getRuntime().exec(cmd);`,Use a parameterized approach or a library like Apache Commons Exec to safely execute external commands with user inputs. Avoid using `Runtime.exec()` directly with untrusted input.
+97,CWE-22,CWE-22,0.9941837191581726,"[(np.str_('CWE-22'), 0.9941837191581726), (np.str_('CWE-79'), 0.0019206093857064843), (np.str_('CWE-502'), 0.001720721134915948)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+98,CWE-89,CWE-89,0.9999935626983643,"[(np.str_('CWE-89'), 0.9999935626983643), (np.str_('CWE-79'), 2.3234781565406593e-06), (np.str_('CWE-77'), 1.9386782241781475e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+99,CWE-22,CWE-22,0.993794322013855,"[(np.str_('CWE-22'), 0.993794322013855), (np.str_('CWE-502'), 0.001985945738852024), (np.str_('CWE-79'), 0.0018928750650957227)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+100,CWE-77,CWE-77,0.9708037972450256,"[(np.str_('CWE-77'), 0.9708037972450256), (np.str_('CWE-79'), 0.023819174617528915), (np.str_('CWE-22'), 0.0024124677293002605)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.1% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.1%),Address the CWE-77 vulnerability in the code.
+101,CWE-77,CWE-79,0.5974642634391785,"[(np.str_('CWE-79'), 0.5974642634391785), (np.str_('CWE-77'), 0.3870440721511841), (np.str_('CWE-89'), 0.006542237475514412)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataSyncServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String syncKey = request.getParameter(""sync_key"");
+String cmd = ""bash /bin/sync_data.sh "" + syncKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données synchronisées"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataSyncServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String syncKey = request.getParameter(""sync_key"");
+String cmd = ""bash /bin/sync_data.sh "" + syncKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données synchronisées"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`syncKey`) without proper validation or sanitization.,"`String cmd = ""bash /bin/sync_data.sh "" + syncKey; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `syncKey` or use parameterized commands if available. For example, if `syncKey` should only contain alphanumeric characters, validate it before constructing the command."
+102,CWE-22,CWE-22,0.9929273724555969,"[(np.str_('CWE-22'), 0.9929273724555969), (np.str_('CWE-502'), 0.002282775705680251), (np.str_('CWE-79'), 0.002167048864066601)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+103,CWE-22,CWE-22,0.9930892586708069,"[(np.str_('CWE-22'), 0.9930892586708069), (np.str_('CWE-79'), 0.0026351085398346186), (np.str_('CWE-502'), 0.0021746582351624966)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+104,CWE-502,CWE-79,0.9676883816719055,"[(np.str_('CWE-79'), 0.9676883816719055), (np.str_('CWE-502'), 0.02596478909254074), (np.str_('CWE-77'), 0.003458030056208372)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 96.8% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (96.8%),Address the CWE-79 vulnerability in the code.
+105,CWE-89,CWE-89,0.9999921321868896,"[(np.str_('CWE-89'), 0.9999921321868896), (np.str_('CWE-79'), 3.2736297725932673e-06), (np.str_('CWE-77'), 2.000234644583543e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+106,CWE-502,CWE-79,0.9689540266990662,"[(np.str_('CWE-79'), 0.9689540266990662), (np.str_('CWE-502'), 0.025287749245762825), (np.str_('CWE-77'), 0.0027301062364131212)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 96.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (96.9%),Address the CWE-79 vulnerability in the code.
+107,CWE-79,CWE-79,0.9972053170204163,"[(np.str_('CWE-79'), 0.9972053170204163), (np.str_('CWE-77'), 0.000741619965992868), (np.str_('CWE-22'), 0.0007409529644064605)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+108,CWE-89,CWE-89,0.9999942779541016,"[(np.str_('CWE-89'), 0.9999942779541016), (np.str_('CWE-77'), 1.9676981537486427e-06), (np.str_('CWE-79'), 1.6902160950849066e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+109,CWE-79,CWE-79,0.9967779517173767,"[(np.str_('CWE-79'), 0.9967779517173767), (np.str_('CWE-89'), 0.0009477958083152771), (np.str_('CWE-77'), 0.0008055707439780235)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+110,CWE-77,CWE-79,0.9826574921607971,"[(np.str_('CWE-79'), 0.9826574921607971), (np.str_('CWE-77'), 0.011888301931321621), (np.str_('CWE-89'), 0.00260556791909039)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.3%),Address the CWE-79 vulnerability in the code.
+111,CWE-77,CWE-77,0.9933813810348511,"[(np.str_('CWE-77'), 0.9933813810348511), (np.str_('CWE-79'), 0.0035441676154732704), (np.str_('CWE-22'), 0.0013582425890490413)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.3%),Address the CWE-77 vulnerability in the code.
+112,CWE-77,CWE-77,0.9778710603713989,"[(np.str_('CWE-77'), 0.9778710603713989), (np.str_('CWE-79'), 0.017070693895220757), (np.str_('CWE-22'), 0.0022927704267203808)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 97.8% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (97.8%),Address the CWE-77 vulnerability in the code.
+113,CWE-22,CWE-22,0.9938403367996216,"[(np.str_('CWE-22'), 0.9938403367996216), (np.str_('CWE-502'), 0.002129978034645319), (np.str_('CWE-79'), 0.002037724247202277)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+114,CWE-22,CWE-22,0.9938886165618896,"[(np.str_('CWE-22'), 0.9938886165618896), (np.str_('CWE-79'), 0.0021209476981312037), (np.str_('CWE-502'), 0.0019676676020026207)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+115,CWE-79,CWE-79,0.9968751668930054,"[(np.str_('CWE-79'), 0.9968751668930054), (np.str_('CWE-22'), 0.0010024952935054898), (np.str_('CWE-77'), 0.0009077897411771119)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+116,CWE-79,CWE-79,0.9969774484634399,"[(np.str_('CWE-79'), 0.9969774484634399), (np.str_('CWE-22'), 0.0009598532342351973), (np.str_('CWE-77'), 0.0008872375474311411)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+117,CWE-22,CWE-22,0.9919533133506775,"[(np.str_('CWE-22'), 0.9919533133506775), (np.str_('CWE-79'), 0.00318029522895813), (np.str_('CWE-502'), 0.0023393237497657537)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+118,CWE-79,CWE-79,0.9972146153450012,"[(np.str_('CWE-79'), 0.9972146153450012), (np.str_('CWE-77'), 0.0007743251626379788), (np.str_('CWE-22'), 0.0007529936265200377)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+119,CWE-89,CWE-89,0.9999946355819702,"[(np.str_('CWE-89'), 0.9999946355819702), (np.str_('CWE-79'), 1.8508969787944807e-06), (np.str_('CWE-77'), 1.6510848581674509e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+120,CWE-22,CWE-22,0.9885269403457642,"[(np.str_('CWE-22'), 0.9885269403457642), (np.str_('CWE-77'), 0.00717893335968256), (np.str_('CWE-502'), 0.002250917721539736)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 98.9% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (98.9%),Address the CWE-22 vulnerability in the code.
+121,CWE-22,CWE-22,0.9922114610671997,"[(np.str_('CWE-22'), 0.9922114610671997), (np.str_('CWE-79'), 0.0028941493947058916), (np.str_('CWE-502'), 0.0025538550689816475)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+122,CWE-502,CWE-79,0.9452331066131592,"[(np.str_('CWE-79'), 0.9452331066131592), (np.str_('CWE-89'), 0.03404479846358299), (np.str_('CWE-502'), 0.015721196308732033)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Map.class);
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Map.class);
+}
+}
+```
+",CWE-502,The code uses `snakeyaml` to deserialize untrusted YAML data from an HTTP request parameter (`jsonData`). This can lead to remote code execution if the input is malicious.,"`Object data = yaml.loadAs(jsonData, Map.class);`","Avoid deserializing untrusted data. If necessary, use a safe alternative like JSON and validate any inputs before processing them."
+123,CWE-22,CWE-22,0.9897350072860718,"[(np.str_('CWE-22'), 0.9897350072860718), (np.str_('CWE-77'), 0.005490955431014299), (np.str_('CWE-502'), 0.002425010548904538)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.0% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.0%),Address the CWE-22 vulnerability in the code.
+124,CWE-22,CWE-22,0.9941177368164062,"[(np.str_('CWE-22'), 0.9941177368164062), (np.str_('CWE-502'), 0.001942583592608571), (np.str_('CWE-79'), 0.0017997266259044409)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+125,CWE-79,CWE-79,0.997055172920227,"[(np.str_('CWE-79'), 0.997055172920227), (np.str_('CWE-77'), 0.0007560608210042119), (np.str_('CWE-22'), 0.0007443718495778739)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+126,CWE-22,CWE-22,0.9937301874160767,"[(np.str_('CWE-22'), 0.9937301874160767), (np.str_('CWE-77'), 0.0022433747071772814), (np.str_('CWE-502'), 0.0019487469689920545)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+127,CWE-77,CWE-79,0.9954250454902649,"[(np.str_('CWE-79'), 0.9954250454902649), (np.str_('CWE-77'), 0.0018609813414514065), (np.str_('CWE-22'), 0.0010246799793094397)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+128,CWE-502,CWE-89,0.9999927282333374,"[(np.str_('CWE-89'), 0.9999927282333374), (np.str_('CWE-77'), 2.2044957859179704e-06), (np.str_('CWE-79'), 1.7461732113588369e-06)]",codebert,CWE-89,False,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+129,CWE-89,CWE-89,0.9999939203262329,"[(np.str_('CWE-89'), 0.9999939203262329), (np.str_('CWE-79'), 2.15202703657269e-06), (np.str_('CWE-77'), 1.6849688790898654e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+130,CWE-77,CWE-79,0.9889214038848877,"[(np.str_('CWE-79'), 0.9889214038848877), (np.str_('CWE-77'), 0.006822193507105112), (np.str_('CWE-89'), 0.001842293655499816)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.9%),Address the CWE-79 vulnerability in the code.
+131,CWE-502,CWE-79,0.9763662815093994,"[(np.str_('CWE-79'), 0.9763662815093994), (np.str_('CWE-502'), 0.017680224031209946), (np.str_('CWE-77'), 0.00258041825145483)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 97.6% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (97.6%),Address the CWE-79 vulnerability in the code.
+132,CWE-502,CWE-79,0.850123941898346,"[(np.str_('CWE-79'), 0.850123941898346), (np.str_('CWE-502'), 0.13525095582008362), (np.str_('CWE-77'), 0.00677451491355896)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleReader {
+public Object pickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(data);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+return new ObjectInputStream(byteStream).readObject();
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleReader {
+public Object pickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(data);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+return new ObjectInputStream(byteStream).readObject();
+}
+}
+```
+",CWE-502,"The code deserializes data received from an untrusted source using `ObjectInputStream`, which can lead to remote code execution if the data contains malicious objects.",`new ObjectInputStream(byteStream).readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+133,CWE-502,CWE-502,0.9782673120498657,"[(np.str_('CWE-502'), 0.9782673120498657), (np.str_('CWE-79'), 0.014022736810147762), (np.str_('CWE-22'), 0.003997237887233496)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 97.8% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (97.8%),Address the CWE-502 vulnerability in the code.
+134,CWE-77,CWE-79,0.9513947367668152,"[(np.str_('CWE-79'), 0.9513947367668152), (np.str_('CWE-77'), 0.04064081236720085), (np.str_('CWE-89'), 0.003613680601119995)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 95.1% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (95.1%),Address the CWE-79 vulnerability in the code.
+135,CWE-77,CWE-79,0.955394983291626,"[(np.str_('CWE-79'), 0.955394983291626), (np.str_('CWE-77'), 0.03709258511662483), (np.str_('CWE-89'), 0.0033170131500810385)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 95.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (95.5%),Address the CWE-79 vulnerability in the code.
+136,CWE-22,CWE-22,0.9927628636360168,"[(np.str_('CWE-22'), 0.9927628636360168), (np.str_('CWE-77'), 0.0027208549436181784), (np.str_('CWE-502'), 0.0022036279551684856)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+137,CWE-77,CWE-79,0.9944849610328674,"[(np.str_('CWE-79'), 0.9944849610328674), (np.str_('CWE-77'), 0.0026069560553878546), (np.str_('CWE-22'), 0.0010740000288933516)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+138,CWE-89,CWE-89,0.9999940395355225,"[(np.str_('CWE-89'), 0.9999940395355225), (np.str_('CWE-77'), 1.8179305243393173e-06), (np.str_('CWE-79'), 1.8045160459223553e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+139,CWE-22,CWE-22,0.988827109336853,"[(np.str_('CWE-22'), 0.988827109336853), (np.str_('CWE-77'), 0.006414517294615507), (np.str_('CWE-502'), 0.0024403983261436224)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 98.9% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (98.9%),Address the CWE-22 vulnerability in the code.
+140,CWE-77,CWE-77,0.9835265278816223,"[(np.str_('CWE-77'), 0.9835265278816223), (np.str_('CWE-79'), 0.012181435711681843), (np.str_('CWE-22'), 0.0018224103841930628)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.4% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.4%),Address the CWE-77 vulnerability in the code.
+141,CWE-502,CWE-502,0.9255433082580566,"[(np.str_('CWE-502'), 0.9255433082580566), (np.str_('CWE-79'), 0.06230755150318146), (np.str_('CWE-22'), 0.006449405569583178)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataHandler {
+public Object getPickleData(HttpServletRequest request, String pickled) throws Exception{
+byte[] decodedBytes = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object obj = objectStream.readObject();
+}
+```
+",CWE-502,"The code deserializes data from an untrusted source (`pickled` parameter), which can lead to remote code execution if the serialized data contains malicious objects.",`Object obj = objectStream.readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+142,CWE-77,CWE-79,0.9946935772895813,"[(np.str_('CWE-79'), 0.9946935772895813), (np.str_('CWE-77'), 0.002387621905654669), (np.str_('CWE-22'), 0.001184311113320291)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+143,CWE-22,CWE-22,0.9926597476005554,"[(np.str_('CWE-22'), 0.9926597476005554), (np.str_('CWE-79'), 0.002563551301136613), (np.str_('CWE-502'), 0.002158075338229537)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+144,CWE-502,CWE-502,0.5281221270561218,"[(np.str_('CWE-502'), 0.5281221270561218), (np.str_('CWE-79'), 0.44635656476020813), (np.str_('CWE-22'), 0.010128085501492023)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataLoader {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object result = objectStream.readObject();
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataLoader {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String pickledData = request.getParameter(""data"");
+byte[] decodedBytes = Base64.getDecoder().decode(pickledData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedBytes);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+Object result = objectStream.readObject();
+}
+}
+```
+",CWE-502,"The code deserializes data received from an untrusted source (`request.getParameter(""data"")`), which can lead to remote code execution if the data is crafted maliciously.",`Object result = objectStream.readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+145,CWE-77,CWE-79,0.9946094751358032,"[(np.str_('CWE-79'), 0.9946094751358032), (np.str_('CWE-77'), 0.002519112080335617), (np.str_('CWE-22'), 0.0011393724707886577)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+146,CWE-89,CWE-89,0.999994158744812,"[(np.str_('CWE-89'), 0.999994158744812), (np.str_('CWE-79'), 2.111134563165251e-06), (np.str_('CWE-77'), 1.608307229616912e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+147,CWE-22,CWE-22,0.993255615234375,"[(np.str_('CWE-22'), 0.993255615234375), (np.str_('CWE-77'), 0.0023626189213246107), (np.str_('CWE-79'), 0.0019344617612659931)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+148,CWE-77,CWE-77,0.9625238180160522,"[(np.str_('CWE-77'), 0.9625238180160522), (np.str_('CWE-79'), 0.031510528177022934), (np.str_('CWE-22'), 0.0026600132696330547)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 96.3% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (96.3%),Address the CWE-77 vulnerability in the code.
+149,CWE-79,CWE-79,0.9971513152122498,"[(np.str_('CWE-79'), 0.9971513152122498), (np.str_('CWE-22'), 0.0007756587583571672), (np.str_('CWE-77'), 0.0007655564695596695)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+150,CWE-77,CWE-77,0.9950968623161316,"[(np.str_('CWE-77'), 0.9950968623161316), (np.str_('CWE-79'), 0.002056521363556385), (np.str_('CWE-22'), 0.0013782302848994732)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.5% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.5%),Address the CWE-77 vulnerability in the code.
+151,CWE-77,CWE-77,0.9522520303726196,"[(np.str_('CWE-77'), 0.9522520303726196), (np.str_('CWE-79'), 0.04126427322626114), (np.str_('CWE-22'), 0.0028290527407079935)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 95.2% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (95.2%),Address the CWE-77 vulnerability in the code.
+152,CWE-89,CWE-89,0.9999942779541016,"[(np.str_('CWE-89'), 0.9999942779541016), (np.str_('CWE-77'), 1.8891271338361548e-06), (np.str_('CWE-79'), 1.6155063349287957e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+153,CWE-77,CWE-79,0.9942978024482727,"[(np.str_('CWE-79'), 0.9942978024482727), (np.str_('CWE-77'), 0.0027642741333693266), (np.str_('CWE-22'), 0.0010819309391081333)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+154,CWE-502,CWE-79,0.9915123581886292,"[(np.str_('CWE-79'), 0.9915123581886292), (np.str_('CWE-502'), 0.005134174134582281), (np.str_('CWE-77'), 0.0014353691367432475)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.2% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.2%),Address the CWE-79 vulnerability in the code.
+155,CWE-22,CWE-22,0.992720901966095,"[(np.str_('CWE-22'), 0.992720901966095), (np.str_('CWE-77'), 0.0029621331486850977), (np.str_('CWE-502'), 0.002087508561089635)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+156,CWE-22,CWE-22,0.9944321513175964,"[(np.str_('CWE-22'), 0.9944321513175964), (np.str_('CWE-502'), 0.0018549597589299083), (np.str_('CWE-77'), 0.0017083011334761977)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+157,CWE-502,CWE-79,0.987561047077179,"[(np.str_('CWE-79'), 0.987561047077179), (np.str_('CWE-502'), 0.007773963734507561), (np.str_('CWE-22'), 0.002153495792299509)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.8% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.8%),Address the CWE-79 vulnerability in the code.
+158,CWE-89,CWE-89,0.9999940395355225,"[(np.str_('CWE-89'), 0.9999940395355225), (np.str_('CWE-79'), 1.961702082553529e-06), (np.str_('CWE-77'), 1.918067482620245e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+159,CWE-77,CWE-79,0.9671874046325684,"[(np.str_('CWE-79'), 0.9671874046325684), (np.str_('CWE-77'), 0.026400551199913025), (np.str_('CWE-22'), 0.002423055935651064)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 96.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (96.7%),Address the CWE-79 vulnerability in the code.
+160,CWE-22,CWE-22,0.9943434000015259,"[(np.str_('CWE-22'), 0.9943434000015259), (np.str_('CWE-502'), 0.001835101400502026), (np.str_('CWE-77'), 0.001786421868018806)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+161,CWE-22,CWE-22,0.9936904907226562,"[(np.str_('CWE-22'), 0.9936904907226562), (np.str_('CWE-502'), 0.001975931227207184), (np.str_('CWE-79'), 0.001962191890925169)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+162,CWE-77,CWE-79,0.993417501449585,"[(np.str_('CWE-79'), 0.993417501449585), (np.str_('CWE-77'), 0.003444801550358534), (np.str_('CWE-22'), 0.001213488751091063)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+163,CWE-502,CWE-502,0.8122135996818542,"[(np.str_('CWE-502'), 0.8122135996818542), (np.str_('CWE-79'), 0.16645684838294983), (np.str_('CWE-22'), 0.010153749957680702)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataHandler {
+public Object getPickleData(HttpServletRequest request) throws Exception {
+String pickleData = request.getParameter(""pickleData"");
+byte[] decoded = Base64.getDecoder().decode(pickleData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+return (Object) new ObjectInputStream(byteStream).readObject();
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickledDataHandler {
+public Object getPickleData(HttpServletRequest request) throws Exception {
+String pickleData = request.getParameter(""pickleData"");
+byte[] decoded = Base64.getDecoder().decode(pickleData);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+return (Object) new ObjectInputStream(byteStream).readObject();
+}
+}
+```
+",CWE-502,"The code deserializes data received from an untrusted source (`HttpServletRequest` parameter), which can lead to remote code execution if the serialized object contains malicious content.",`new ObjectInputStream(byteStream).readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+164,CWE-77,CWE-79,0.704127311706543,"[(np.str_('CWE-79'), 0.704127311706543), (np.str_('CWE-77'), 0.2816038429737091), (np.str_('CWE-89'), 0.005742379929870367)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`restoreKey`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreKey; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `restoreKey` or use parameterized commands if available. For example, if possible, modify the script to accept parameters through environment variables or other secure methods instead of direct command execution."
+165,CWE-89,CWE-89,0.9999942779541016,"[(np.str_('CWE-89'), 0.9999942779541016), (np.str_('CWE-77'), 1.8538765971243265e-06), (np.str_('CWE-79'), 1.644457597649307e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+166,CWE-502,CWE-79,0.9778391122817993,"[(np.str_('CWE-79'), 0.9778391122817993), (np.str_('CWE-502'), 0.016530916094779968), (np.str_('CWE-77'), 0.0024091936647892)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 97.8% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (97.8%),Address the CWE-79 vulnerability in the code.
+167,CWE-22,CWE-22,0.9941909909248352,"[(np.str_('CWE-22'), 0.9941909909248352), (np.str_('CWE-77'), 0.0018966741627082229), (np.str_('CWE-502'), 0.0018020878778770566)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+168,CWE-502,CWE-502,0.9945564270019531,"[(np.str_('CWE-502'), 0.9945564270019531), (np.str_('CWE-22'), 0.0021499807480722666), (np.str_('CWE-77'), 0.0014942814595997334)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.5% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.5%),Address the CWE-502 vulnerability in the code.
+169,CWE-77,CWE-77,0.8964083194732666,"[(np.str_('CWE-77'), 0.8964083194732666), (np.str_('CWE-79'), 0.0928671807050705), (np.str_('CWE-89'), 0.004489054903388023)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import_data.py "" + datasetId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data import started"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataImporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/import_data.py "" + datasetId;
+Process process = Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Data import started"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`datasetId`) without proper validation or sanitization.,"`String cmd = ""python /scripts/import_data.py "" + datasetId;`","Use a whitelist of allowed values for `datasetId` or use parameterized commands if available in your environment. For example, if you can control the execution environment, consider using a safer method to pass parameters to the script."
+170,CWE-22,CWE-22,0.9941786527633667,"[(np.str_('CWE-22'), 0.9941786527633667), (np.str_('CWE-502'), 0.0019372826209291816), (np.str_('CWE-79'), 0.00190118164755404)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+171,CWE-77,CWE-77,0.9163199067115784,"[(np.str_('CWE-77'), 0.9163199067115784), (np.str_('CWE-79'), 0.07553740590810776), (np.str_('CWE-22'), 0.003340305993333459)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String restoreCmd = ""bash /scripts/restore.sh "" + dataKey;
+Process process = Runtime.getRuntime().exec(restoreCmd);
+response.getWriter().print(""Data restored"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataKey = request.getParameter(""data_key"");
+String restoreCmd = ""bash /scripts/restore.sh "" + dataKey;
+Process process = Runtime.getRuntime().exec(restoreCmd);
+response.getWriter().print(""Data restored"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`dataKey`) without proper validation or sanitization.,"`String restoreCmd = ""bash /scripts/restore.sh "" + dataKey;`",Use a whitelist of allowed values for `dataKey` or use parameterized commands instead of string concatenation. For example:
+172,CWE-77,CWE-79,0.993655800819397,"[(np.str_('CWE-79'), 0.993655800819397), (np.str_('CWE-77'), 0.003257423872128129), (np.str_('CWE-22'), 0.0011886021820828319)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+173,CWE-502,CWE-79,0.9805542230606079,"[(np.str_('CWE-79'), 0.9805542230606079), (np.str_('CWE-502'), 0.014010578393936157), (np.str_('CWE-22'), 0.0026498022489249706)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.1% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.1%),Address the CWE-79 vulnerability in the code.
+174,CWE-22,CWE-22,0.9856742024421692,"[(np.str_('CWE-22'), 0.9856742024421692), (np.str_('CWE-77'), 0.009316569194197655), (np.str_('CWE-502'), 0.0026646943297237158)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 98.6% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (98.6%),Address the CWE-22 vulnerability in the code.
+175,CWE-22,CWE-22,0.9929741621017456,"[(np.str_('CWE-22'), 0.9929741621017456), (np.str_('CWE-77'), 0.002638287842273712), (np.str_('CWE-502'), 0.002081014681607485)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+176,CWE-22,CWE-22,0.9930619597434998,"[(np.str_('CWE-22'), 0.9930619597434998), (np.str_('CWE-79'), 0.002495791995897889), (np.str_('CWE-502'), 0.002088944660499692)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+177,CWE-22,CWE-22,0.9937266111373901,"[(np.str_('CWE-22'), 0.9937266111373901), (np.str_('CWE-79'), 0.002080662874504924), (np.str_('CWE-502'), 0.002060424303635955)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+178,CWE-77,CWE-77,0.9253994226455688,"[(np.str_('CWE-77'), 0.9253994226455688), (np.str_('CWE-79'), 0.06644293665885925), (np.str_('CWE-22'), 0.003441323060542345)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String cmd = ""sh /scripts/restore.sh "" + restoreToken;
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter password for restoration: "");
+String password = scanner.nextLine();
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String cmd = ""sh /scripts/restore.sh "" + restoreToken;
+Scanner scanner = new Scanner(System.in);
+System.out.println(""Enter password for restoration: "");
+String password = scanner.nextLine();
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a shell command using user input (`restoreToken`) without proper validation or sanitization.,`Runtime.getRuntime().exec(cmd);`,Use a whitelist of allowed tokens and validate the input before constructing the command. Avoid using `Runtime.exec()` with untrusted inputs. Consider using a safer approach like parameterized queries if applicable.
+179,CWE-77,CWE-79,0.9404240846633911,"[(np.str_('CWE-79'), 0.9404240846633911), (np.str_('CWE-77'), 0.04964306950569153), (np.str_('CWE-89'), 0.005147513467818499)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export_data.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données exportées"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExporterServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export_data.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Données exportées"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`datasetId`) without proper validation or sanitization.,"`String cmd = ""python /scripts/export_data.py "" + datasetId; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `datasetId` and avoid constructing commands from untrusted inputs. Alternatively, use a safer method like `ProcessBuilder` with explicit arguments to prevent injection."
+180,CWE-22,CWE-22,0.9935977458953857,"[(np.str_('CWE-22'), 0.9935977458953857), (np.str_('CWE-77'), 0.0021766091231256723), (np.str_('CWE-502'), 0.0020051116589456797)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+181,CWE-77,CWE-77,0.9964356422424316,"[(np.str_('CWE-77'), 0.9964356422424316), (np.str_('CWE-22'), 0.0011129173217341304), (np.str_('CWE-502'), 0.001015056506730616)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.6% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.6%),Address the CWE-77 vulnerability in the code.
+182,CWE-77,CWE-77,0.9832906723022461,"[(np.str_('CWE-77'), 0.9832906723022461), (np.str_('CWE-79'), 0.012441123835742474), (np.str_('CWE-22'), 0.0019071194110438228)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.3% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.3%),Address the CWE-77 vulnerability in the code.
+183,CWE-502,CWE-79,0.9952669143676758,"[(np.str_('CWE-79'), 0.9952669143676758), (np.str_('CWE-502'), 0.0024290597066283226), (np.str_('CWE-77'), 0.0011210375232622027)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+184,CWE-79,CWE-79,0.9900555610656738,"[(np.str_('CWE-79'), 0.9900555610656738), (np.str_('CWE-89'), 0.007024546153843403), (np.str_('CWE-77'), 0.0011974412482231855)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.0% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.0%),Address the CWE-79 vulnerability in the code.
+185,CWE-22,CWE-22,0.9936747550964355,"[(np.str_('CWE-22'), 0.9936747550964355), (np.str_('CWE-79'), 0.002016657730564475), (np.str_('CWE-502'), 0.0019849692471325397)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+186,CWE-502,CWE-502,0.9946001768112183,"[(np.str_('CWE-502'), 0.9946001768112183), (np.str_('CWE-22'), 0.0021331580355763435), (np.str_('CWE-77'), 0.0014947192976251245)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.5% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.5%),Address the CWE-502 vulnerability in the code.
+187,CWE-22,CWE-22,0.9930506944656372,"[(np.str_('CWE-22'), 0.9930506944656372), (np.str_('CWE-77'), 0.0021731876768171787), (np.str_('CWE-502'), 0.0020869686268270016)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+188,CWE-22,CWE-22,0.9940318465232849,"[(np.str_('CWE-22'), 0.9940318465232849), (np.str_('CWE-79'), 0.002033682307228446), (np.str_('CWE-502'), 0.0019478194881230593)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+189,CWE-22,CWE-22,0.9939165711402893,"[(np.str_('CWE-22'), 0.9939165711402893), (np.str_('CWE-77'), 0.0021548604127019644), (np.str_('CWE-502'), 0.0018134309211745858)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+190,CWE-22,CWE-22,0.9931031465530396,"[(np.str_('CWE-22'), 0.9931031465530396), (np.str_('CWE-79'), 0.0023443212267011404), (np.str_('CWE-502'), 0.0023430383298546076)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+191,CWE-79,CWE-79,0.9972190856933594,"[(np.str_('CWE-79'), 0.9972190856933594), (np.str_('CWE-22'), 0.0007699777488596737), (np.str_('CWE-77'), 0.0007379984017461538)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+192,CWE-79,CWE-79,0.9971928000450134,"[(np.str_('CWE-79'), 0.9971928000450134), (np.str_('CWE-22'), 0.0007697290857322514), (np.str_('CWE-77'), 0.000768306665122509)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+193,CWE-77,CWE-79,0.9402301907539368,"[(np.str_('CWE-79'), 0.9402301907539368), (np.str_('CWE-77'), 0.05174671486020088), (np.str_('CWE-22'), 0.0033835601061582565)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DeploymentServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String deploymentId = request.getParameter(""deployment_id"");
+String command = ""bash /deployments/deploy.sh "" + deploymentId;
+ProcessBuilder builder = new ProcessBuilder(command.split(""\\s+""));
+builder.start();
+response.getWriter().print(""Deployment lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DeploymentServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String deploymentId = request.getParameter(""deployment_id"");
+String command = ""bash /deployments/deploy.sh "" + deploymentId;
+ProcessBuilder builder = new ProcessBuilder(command.split(""\\s+""));
+builder.start();
+response.getWriter().print(""Deployment lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it constructs a command string using user input (`deploymentId`) without proper validation or sanitization.,"`String command = ""bash /deployments/deploy.sh "" + deploymentId;`",Use `ProcessBuilder` with separate arguments instead of concatenating the command string to prevent injection attacks. For example:
+194,CWE-77,CWE-77,0.9957079887390137,"[(np.str_('CWE-77'), 0.9957079887390137), (np.str_('CWE-22'), 0.0014327614335343242), (np.str_('CWE-502'), 0.0010635611834004521)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 99.6% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.6%),Address the CWE-77 vulnerability in the code.
+195,CWE-22,CWE-22,0.9926889538764954,"[(np.str_('CWE-22'), 0.9926889538764954), (np.str_('CWE-502'), 0.0022296172101050615), (np.str_('CWE-79'), 0.002106575993821025)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+196,CWE-22,CWE-22,0.9921343326568604,"[(np.str_('CWE-22'), 0.9921343326568604), (np.str_('CWE-77'), 0.003835611743852496), (np.str_('CWE-502'), 0.001971492078155279)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+197,CWE-22,CWE-22,0.9918935298919678,"[(np.str_('CWE-22'), 0.9918935298919678), (np.str_('CWE-77'), 0.0039811693131923676), (np.str_('CWE-502'), 0.0020071202889084816)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+198,CWE-89,CWE-89,0.9999943971633911,"[(np.str_('CWE-89'), 0.9999943971633911), (np.str_('CWE-77'), 1.8682137579162372e-06), (np.str_('CWE-79'), 1.5791944178999984e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+199,CWE-77,CWE-77,0.9035726189613342,"[(np.str_('CWE-77'), 0.9035726189613342), (np.str_('CWE-79'), 0.0877184271812439), (np.str_('CWE-22'), 0.0035098097287118435)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Scanner;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Scanner scanner = new Scanner(cmd);
+while (scanner.hasNextLine()) {
+System.out.println(scanner.nextLine());
+}
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restauration lancée"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`restoreKey`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreKey; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `restoreKey` and avoid executing arbitrary commands based on user input. If necessary, use parameterized queries or prepared statements instead."
+200,CWE-77,CWE-79,0.9943392872810364,"[(np.str_('CWE-79'), 0.9943392872810364), (np.str_('CWE-77'), 0.0027019584085792303), (np.str_('CWE-22'), 0.0011646229540929198)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+201,CWE-79,CWE-79,0.9972891807556152,"[(np.str_('CWE-79'), 0.9972891807556152), (np.str_('CWE-22'), 0.0007663822616450489), (np.str_('CWE-77'), 0.0007341871387325227)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+202,CWE-502,CWE-502,0.9488590955734253,"[(np.str_('CWE-502'), 0.9488590955734253), (np.str_('CWE-79'), 0.036919787526130676), (np.str_('CWE-22'), 0.007449242752045393)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class DataFetcher {
+public Object getPickleData(HttpServletRequest request, String pickledObject) throws Exception {
+String pickled = request.getParameter(pickledObject);
+byte[] decoded = Base64.getDecoder().decode(pickled);
+ByteArrayInputStream byteStream = new ByteArrayInputStream(decoded);
+ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+return objectStream.readObject();
+}
+}
+```
+",CWE-502,"The code deserializes data received from an untrusted source (`HttpServletRequest`), which can lead to remote code execution if the serialized data contains malicious objects.",`ObjectInputStream objectStream = new ObjectInputStream(byteStream); return objectStream.readObject();`,"Avoid deserializing untrusted data. If necessary, use a safe serialization mechanism or validate the input before deserialization."
+203,CWE-502,CWE-502,0.9945520758628845,"[(np.str_('CWE-502'), 0.9945520758628845), (np.str_('CWE-22'), 0.0021442032884806395), (np.str_('CWE-77'), 0.001482175663113594)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.5% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.5%),Address the CWE-502 vulnerability in the code.
+204,CWE-77,CWE-77,0.9859084486961365,"[(np.str_('CWE-77'), 0.9859084486961365), (np.str_('CWE-79'), 0.010045262053608894), (np.str_('CWE-22'), 0.001932612620294094)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 98.6% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (98.6%),Address the CWE-77 vulnerability in the code.
+205,CWE-502,CWE-502,0.992324948310852,"[(np.str_('CWE-502'), 0.992324948310852), (np.str_('CWE-79'), 0.003588893450796604), (np.str_('CWE-22'), 0.0021437404211610556)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.2%),Address the CWE-502 vulnerability in the code.
+206,CWE-77,CWE-79,0.9616080522537231,"[(np.str_('CWE-79'), 0.9616080522537231), (np.str_('CWE-77'), 0.03147239610552788), (np.str_('CWE-89'), 0.00297199166379869)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 96.2% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (96.2%),Address the CWE-79 vulnerability in the code.
+207,CWE-22,CWE-22,0.9932061433792114,"[(np.str_('CWE-22'), 0.9932061433792114), (np.str_('CWE-79'), 0.002202402800321579), (np.str_('CWE-502'), 0.001998874358832836)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+208,CWE-502,CWE-502,0.880837082862854,"[(np.str_('CWE-502'), 0.880837082862854), (np.str_('CWE-79'), 0.10907180607318878), (np.str_('CWE-22'), 0.004954698961228132)]",llm,CWE-502,True,"Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] b = Base64.getDecoder().decode(data);
+ByteArrayInputStream bi = new ByteArrayInputStream(b);
+ObjectInputStream oi = new ObjectInputStream(bi);
+Object obj = oi.readObject();
+}
+}
+```
+This code introduces a vulnerability by allowing the deserialization of untrusted input without proper validation. This can lead to Remote Code Execution (RCE) attacks if an attacker is able to manipulate the ""data"" parameter in the request.","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+Here is the modified Java code with a security vulnerability:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+public class PickleServlet {
+public Object unpickleData(HttpServletRequest request) throws Exception {
+String data = request.getParameter(""data"");
+byte[] b = Base64.getDecoder().decode(data);
+ByteArrayInputStream bi = new ByteArrayInputStream(b);
+ObjectInputStream oi = new ObjectInputStream(bi);
+Object obj = oi.readObject();
+}
+}
+```
+This code introduces a vulnerability by allowing the deserialization of untrusted input without proper validation. This can lead to Remote Code Execution (RCE) attacks if an attacker is able to manipulate the ""data"" parameter in the request.
+",CWE-502,"The code allows the deserialization of untrusted input from the HTTP request parameter ""data"". This can lead to Remote Code Execution (RCE) attacks.",`Object obj = oi.readObject();`,"Use a safe deserialization library like Jackson or Gson, or implement custom deserialization logic with proper validation and whitelisting of allowed classes."
+209,CWE-22,CWE-22,0.9941326975822449,"[(np.str_('CWE-22'), 0.9941326975822449), (np.str_('CWE-77'), 0.002067906316369772), (np.str_('CWE-502'), 0.0017817332409322262)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+210,CWE-77,CWE-79,0.9806128144264221,"[(np.str_('CWE-79'), 0.9806128144264221), (np.str_('CWE-77'), 0.01466028019785881), (np.str_('CWE-22'), 0.0020366813987493515)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.1% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.1%),Address the CWE-79 vulnerability in the code.
+211,CWE-502,CWE-79,0.9254822134971619,"[(np.str_('CWE-79'), 0.9254822134971619), (np.str_('CWE-89'), 0.04650307446718216), (np.str_('CWE-502'), 0.02229365147650242)]",llm,CWE-502,True,"```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Object.class);
+}
+}
+```","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+```java
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import org.yaml.snakeyaml.Yaml;
+public class TemperatureGetter {
+public void getTemperature(HttpServletRequest request) throws SQLException {
+String jsonData = request.getParameter(""jsonData"");
+Yaml yaml = new Yaml();
+Object data = yaml.loadAs(jsonData, Object.class);
+}
+}
+```
+",CWE-502,The code uses `snakeyaml` to deserialize untrusted YAML data from an HTTP request parameter (`jsonData`). This can lead to remote code execution if the input is malicious.,"`Object data = yaml.loadAs(jsonData, Object.class);`","Avoid deserializing untrusted data. If necessary, use a safe method provided by the library or implement custom deserialization logic with proper validation and sanitization."
+212,CWE-77,CWE-79,0.9930253028869629,"[(np.str_('CWE-79'), 0.9930253028869629), (np.str_('CWE-77'), 0.003854313399642706), (np.str_('CWE-22'), 0.001191567163914442)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+213,CWE-22,CWE-22,0.9930376410484314,"[(np.str_('CWE-22'), 0.9930376410484314), (np.str_('CWE-77'), 0.003029179759323597), (np.str_('CWE-502'), 0.0018854094669222832)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+214,CWE-22,CWE-22,0.993552565574646,"[(np.str_('CWE-22'), 0.993552565574646), (np.str_('CWE-79'), 0.0021457436960190535), (np.str_('CWE-502'), 0.0019263364374637604)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+215,CWE-77,CWE-77,0.9647433161735535,"[(np.str_('CWE-77'), 0.9647433161735535), (np.str_('CWE-79'), 0.02928905375301838), (np.str_('CWE-22'), 0.0023780984338372946)]",codebert,CWE-77,True,,,,"CodeBERT classified this with 96.5% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (96.5%),Address the CWE-77 vulnerability in the code.
+216,CWE-77,CWE-79,0.9925881028175354,"[(np.str_('CWE-79'), 0.9925881028175354), (np.str_('CWE-77'), 0.004199552815407515), (np.str_('CWE-22'), 0.0012377065140753984)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+217,CWE-22,CWE-22,0.9933940768241882,"[(np.str_('CWE-22'), 0.9933940768241882), (np.str_('CWE-77'), 0.0024241581559181213), (np.str_('CWE-502'), 0.0018473875243216753)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+218,CWE-22,CWE-22,0.994443953037262,"[(np.str_('CWE-22'), 0.994443953037262), (np.str_('CWE-502'), 0.0018559336895123124), (np.str_('CWE-77'), 0.0016965358518064022)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+219,CWE-22,CWE-22,0.9941746592521667,"[(np.str_('CWE-22'), 0.9941746592521667), (np.str_('CWE-79'), 0.0019114190945401788), (np.str_('CWE-502'), 0.00171915371902287)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+220,CWE-22,CWE-22,0.9941413998603821,"[(np.str_('CWE-22'), 0.9941413998603821), (np.str_('CWE-502'), 0.0020080129615962505), (np.str_('CWE-79'), 0.001788423745892942)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+221,CWE-77,CWE-79,0.9947019219398499,"[(np.str_('CWE-79'), 0.9947019219398499), (np.str_('CWE-77'), 0.0025397147983312607), (np.str_('CWE-22'), 0.0011209537042304873)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+222,CWE-22,CWE-22,0.9930123686790466,"[(np.str_('CWE-22'), 0.9930123686790466), (np.str_('CWE-77'), 0.003201237879693508), (np.str_('CWE-502'), 0.001912806648761034)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+223,CWE-22,CWE-22,0.9941083192825317,"[(np.str_('CWE-22'), 0.9941083192825317), (np.str_('CWE-502'), 0.0020068096928298473), (np.str_('CWE-79'), 0.0018066723132506013)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+224,CWE-77,CWE-77,0.9399957656860352,"[(np.str_('CWE-77'), 0.9399957656860352), (np.str_('CWE-79'), 0.05288071185350418), (np.str_('CWE-22'), 0.0028274948708713055)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String command = ""sudo apt-get install -y nginx && systemctl restart httpd "" + restoreToken;
+Runtime.getRuntime().exec(command);
+response.getWriter().print(""Service restored"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServiceServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreToken = request.getParameter(""restore_token"");
+String command = ""sudo apt-get install -y nginx && systemctl restart httpd "" + restoreToken;
+Runtime.getRuntime().exec(command);
+response.getWriter().print(""Service restored"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a system command using user input (`restoreToken`) without proper validation or sanitization.,`Runtime.getRuntime().exec(command);`,Use a whitelist of allowed tokens and validate the input against this list before constructing the command. Avoid using user-supplied data directly in commands.
+225,CWE-77,CWE-79,0.9792559146881104,"[(np.str_('CWE-79'), 0.9792559146881104), (np.str_('CWE-77'), 0.01581321470439434), (np.str_('CWE-22'), 0.0018938281573355198)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 97.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (97.9%),Address the CWE-79 vulnerability in the code.
+226,CWE-77,CWE-79,0.9294561743736267,"[(np.str_('CWE-79'), 0.9294561743736267), (np.str_('CWE-77'), 0.059531982988119125), (np.str_('CWE-89'), 0.005962030030786991)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Export lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataExportServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String datasetId = request.getParameter(""dataset_id"");
+String cmd = ""python /scripts/export.py "" + datasetId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Export lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command string using user input (`datasetId`) without proper validation or sanitization.,"`String cmd = ""python /scripts/export.py "" + datasetId; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `datasetId` and avoid constructing commands from untrusted inputs. Alternatively, use a library like Apache Commons Exec to safely execute external processes."
+227,CWE-22,CWE-77,0.9954429864883423,"[(np.str_('CWE-77'), 0.9954429864883423), (np.str_('CWE-22'), 0.0016226820880547166), (np.str_('CWE-502'), 0.0011999750277027488)]",codebert,CWE-77,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-77. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-77 (99.5%),Address the CWE-77 vulnerability in the code.
+228,CWE-22,CWE-79,0.994259238243103,"[(np.str_('CWE-79'), 0.994259238243103), (np.str_('CWE-22'), 0.003668555524200201), (np.str_('CWE-502'), 0.0010804615449160337)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+229,CWE-77,CWE-79,0.6945284605026245,"[(np.str_('CWE-79'), 0.6945284605026245), (np.str_('CWE-77'), 0.2909998893737793), (np.str_('CWE-89'), 0.005818346980959177)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreId = request.getParameter(""restore_id"");
+String cmd = ""bash /scripts/restore.sh "" + restoreId;
+Runtime.getRuntime().exec(cmd);
+response.getWriter().print(""Restore lancé"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`restoreId`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreId; Runtime.getRuntime().exec(cmd);`","Use a whitelist of allowed values for `restoreId` or use a parameterized approach if available, and avoid executing shell commands with untrusted inputs."
+230,CWE-22,CWE-22,0.9935546517372131,"[(np.str_('CWE-22'), 0.9935546517372131), (np.str_('CWE-502'), 0.0020632066298276186), (np.str_('CWE-77'), 0.001898662419989705)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+231,CWE-89,CWE-89,0.9999936819076538,"[(np.str_('CWE-89'), 0.9999936819076538), (np.str_('CWE-79'), 2.2115334559202893e-06), (np.str_('CWE-77'), 1.7503564322396414e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+232,CWE-79,CWE-79,0.9972801208496094,"[(np.str_('CWE-79'), 0.9972801208496094), (np.str_('CWE-22'), 0.0007765195914544165), (np.str_('CWE-77'), 0.0007432057172991335)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+233,CWE-22,CWE-22,0.994269609451294,"[(np.str_('CWE-22'), 0.994269609451294), (np.str_('CWE-502'), 0.0020771643612533808), (np.str_('CWE-79'), 0.0018072437960654497)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+234,CWE-79,CWE-79,0.9972497820854187,"[(np.str_('CWE-79'), 0.9972497820854187), (np.str_('CWE-22'), 0.0007555884076282382), (np.str_('CWE-77'), 0.0007305381586775184)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+235,CWE-22,CWE-22,0.9911894798278809,"[(np.str_('CWE-22'), 0.9911894798278809), (np.str_('CWE-77'), 0.004599591717123985), (np.str_('CWE-502'), 0.00206021498888731)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.1% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.1%),Address the CWE-22 vulnerability in the code.
+236,CWE-22,CWE-22,0.9912672638893127,"[(np.str_('CWE-22'), 0.9912672638893127), (np.str_('CWE-77'), 0.004593442659825087), (np.str_('CWE-502'), 0.0019449833780527115)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.1% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.1%),Address the CWE-22 vulnerability in the code.
+237,CWE-22,CWE-22,0.9939538836479187,"[(np.str_('CWE-22'), 0.9939538836479187), (np.str_('CWE-77'), 0.00231965072453022), (np.str_('CWE-502'), 0.0018524478655308485)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+238,CWE-77,CWE-79,0.993655800819397,"[(np.str_('CWE-79'), 0.993655800819397), (np.str_('CWE-77'), 0.003257423872128129), (np.str_('CWE-22'), 0.0011886021820828319)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+239,CWE-22,CWE-22,0.9935270547866821,"[(np.str_('CWE-22'), 0.9935270547866821), (np.str_('CWE-79'), 0.0021467898041009903), (np.str_('CWE-502'), 0.0019324132008478045)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+240,CWE-77,CWE-79,0.9752179384231567,"[(np.str_('CWE-79'), 0.9752179384231567), (np.str_('CWE-77'), 0.019008537754416466), (np.str_('CWE-89'), 0.002257078420370817)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 97.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (97.5%),Address the CWE-79 vulnerability in the code.
+241,CWE-22,CWE-22,0.9931899905204773,"[(np.str_('CWE-22'), 0.9931899905204773), (np.str_('CWE-79'), 0.0021056481637060642), (np.str_('CWE-77'), 0.0020715692080557346)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+242,CWE-22,CWE-22,0.9940114617347717,"[(np.str_('CWE-22'), 0.9940114617347717), (np.str_('CWE-502'), 0.0019740320276468992), (np.str_('CWE-79'), 0.0018783550476655364)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+243,CWE-22,CWE-22,0.9935583472251892,"[(np.str_('CWE-22'), 0.9935583472251892), (np.str_('CWE-79'), 0.001974245300516486), (np.str_('CWE-77'), 0.001958889188244939)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+244,CWE-22,CWE-22,0.9927164912223816,"[(np.str_('CWE-22'), 0.9927164912223816), (np.str_('CWE-77'), 0.0027162388432770967), (np.str_('CWE-502'), 0.002123135607689619)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+245,CWE-22,CWE-79,0.9941861629486084,"[(np.str_('CWE-79'), 0.9941861629486084), (np.str_('CWE-22'), 0.0037324652075767517), (np.str_('CWE-502'), 0.0010620714165270329)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.4% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.4%),Address the CWE-79 vulnerability in the code.
+246,CWE-502,CWE-79,0.990459680557251,"[(np.str_('CWE-79'), 0.990459680557251), (np.str_('CWE-502'), 0.005980717018246651), (np.str_('CWE-77'), 0.0017048520967364311)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.0% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.0%),Address the CWE-79 vulnerability in the code.
+247,CWE-77,CWE-79,0.9454813003540039,"[(np.str_('CWE-79'), 0.9454813003540039), (np.str_('CWE-77'), 0.046973805874586105), (np.str_('CWE-89'), 0.002840951317921281)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+Process p = pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class RestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+ProcessBuilder pb = new ProcessBuilder(""/bin/bash"", ""-c"", cmd);
+Process p = pb.start();
+response.getWriter().print(""Restore initiated"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs a command string using user input (`restoreKey`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreKey;`",Use `ProcessBuilder` with an array of strings to avoid shell injection and ensure that the command is constructed safely. For example:
+248,CWE-77,CWE-77,0.9297629594802856,"[(np.str_('CWE-77'), 0.9297629594802856), (np.str_('CWE-79'), 0.06267751753330231), (np.str_('CWE-22'), 0.0031007379293441772)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restauration lancée"");
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+public class DataRestoreServlet extends HttpServlet {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String restoreKey = request.getParameter(""restore_key"");
+String cmd = ""bash /scripts/restore.sh "" + restoreKey;
+Process process = Runtime.getRuntime().exec(cmd);
+process.waitFor();
+response.getWriter().print(""Restauration lancée"");
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it directly constructs and executes a command using user input (`restoreKey`) without proper validation or sanitization.,"`String cmd = ""bash /scripts/restore.sh "" + restoreKey;`",Use a whitelist of allowed values for `restoreKey` or use parameterized commands instead of string concatenation.
+249,CWE-79,CWE-79,0.9972524046897888,"[(np.str_('CWE-79'), 0.9972524046897888), (np.str_('CWE-22'), 0.0008005024865269661), (np.str_('CWE-77'), 0.0007476704195141792)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+250,CWE-77,CWE-79,0.9946078062057495,"[(np.str_('CWE-79'), 0.9946078062057495), (np.str_('CWE-77'), 0.0025683410931378603), (np.str_('CWE-22'), 0.0010536039480939507)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+251,CWE-22,CWE-22,0.9940600991249084,"[(np.str_('CWE-22'), 0.9940600991249084), (np.str_('CWE-502'), 0.0018747022841125727), (np.str_('CWE-79'), 0.0018263260135427117)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+252,CWE-89,CWE-89,0.9999942779541016,"[(np.str_('CWE-89'), 0.9999942779541016), (np.str_('CWE-79'), 1.8994677475347999e-06), (np.str_('CWE-77'), 1.6919821064220741e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+253,CWE-79,CWE-79,0.9971678853034973,"[(np.str_('CWE-79'), 0.9971678853034973), (np.str_('CWE-22'), 0.0007738035055808723), (np.str_('CWE-77'), 0.0007593627669848502)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+254,CWE-22,CWE-22,0.9915252327919006,"[(np.str_('CWE-22'), 0.9915252327919006), (np.str_('CWE-77'), 0.004006989300251007), (np.str_('CWE-502'), 0.0022588903084397316)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.2% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.2%),Address the CWE-22 vulnerability in the code.
+255,CWE-502,CWE-79,0.9925172328948975,"[(np.str_('CWE-79'), 0.9925172328948975), (np.str_('CWE-502'), 0.0036219197791069746), (np.str_('CWE-22'), 0.0022336100228130817)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.3% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.3%),Address the CWE-79 vulnerability in the code.
+256,CWE-22,CWE-22,0.9939095973968506,"[(np.str_('CWE-22'), 0.9939095973968506), (np.str_('CWE-502'), 0.0019233979983255267), (np.str_('CWE-79'), 0.0018638870678842068)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+257,CWE-77,CWE-79,0.9947218894958496,"[(np.str_('CWE-79'), 0.9947218894958496), (np.str_('CWE-77'), 0.0024083901662379503), (np.str_('CWE-89'), 0.0010612945770844817)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 99.5% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.5%),Address the CWE-79 vulnerability in the code.
+258,CWE-79,CWE-79,0.9967024922370911,"[(np.str_('CWE-79'), 0.9967024922370911), (np.str_('CWE-89'), 0.0010015394072979689), (np.str_('CWE-77'), 0.0008226842619478703)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+259,CWE-22,CWE-22,0.9929481744766235,"[(np.str_('CWE-22'), 0.9929481744766235), (np.str_('CWE-502'), 0.0024030765052884817), (np.str_('CWE-79'), 0.00216106278821826)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+260,CWE-22,CWE-22,0.9929918050765991,"[(np.str_('CWE-22'), 0.9929918050765991), (np.str_('CWE-79'), 0.0025470468681305647), (np.str_('CWE-502'), 0.002180873416364193)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+261,CWE-22,CWE-22,0.993907630443573,"[(np.str_('CWE-22'), 0.993907630443573), (np.str_('CWE-79'), 0.00211026961915195), (np.str_('CWE-502'), 0.001965749077498913)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+262,CWE-89,CWE-89,0.9999946355819702,"[(np.str_('CWE-89'), 0.9999946355819702), (np.str_('CWE-79'), 1.8084159592035576e-06), (np.str_('CWE-77'), 1.6956172430582228e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+263,CWE-79,CWE-79,0.9970435500144958,"[(np.str_('CWE-79'), 0.9970435500144958), (np.str_('CWE-77'), 0.0008443946135230362), (np.str_('CWE-22'), 0.0008360208594240248)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+264,CWE-79,CWE-79,0.9967402815818787,"[(np.str_('CWE-79'), 0.9967402815818787), (np.str_('CWE-89'), 0.0009543256601318717), (np.str_('CWE-77'), 0.0008268142119050026)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+265,CWE-22,CWE-22,0.9940341114997864,"[(np.str_('CWE-22'), 0.9940341114997864), (np.str_('CWE-502'), 0.0018659454071894288), (np.str_('CWE-79'), 0.001825724495574832)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+266,CWE-77,CWE-79,0.9594643115997314,"[(np.str_('CWE-79'), 0.9594643115997314), (np.str_('CWE-77'), 0.03263506293296814), (np.str_('CWE-89'), 0.0038726951461285353)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 95.9% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (95.9%),Address the CWE-79 vulnerability in the code.
+267,CWE-22,CWE-22,0.9939029216766357,"[(np.str_('CWE-22'), 0.9939029216766357), (np.str_('CWE-79'), 0.002005498856306076), (np.str_('CWE-502'), 0.001963907852768898)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+268,CWE-89,CWE-89,0.9999946355819702,"[(np.str_('CWE-89'), 0.9999946355819702), (np.str_('CWE-79'), 1.763194859449868e-06), (np.str_('CWE-77'), 1.570877884660149e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+269,CWE-22,CWE-22,0.9931384921073914,"[(np.str_('CWE-22'), 0.9931384921073914), (np.str_('CWE-79'), 0.0024390113539993763), (np.str_('CWE-502'), 0.002116662450134754)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+270,CWE-22,CWE-22,0.9938879609107971,"[(np.str_('CWE-22'), 0.9938879609107971), (np.str_('CWE-79'), 0.0021375829819589853), (np.str_('CWE-502'), 0.001980882603675127)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+271,CWE-502,CWE-79,0.9872190952301025,"[(np.str_('CWE-79'), 0.9872190952301025), (np.str_('CWE-502'), 0.008702308870851994), (np.str_('CWE-77'), 0.0019438494928181171)]",codebert,CWE-79,False,,,,"CodeBERT classified this with 98.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (98.7%),Address the CWE-79 vulnerability in the code.
+272,CWE-79,CWE-79,0.9971920847892761,"[(np.str_('CWE-79'), 0.9971920847892761), (np.str_('CWE-22'), 0.0007738551357761025), (np.str_('CWE-77'), 0.0007562742102891207)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+273,CWE-79,CWE-79,0.9971785545349121,"[(np.str_('CWE-79'), 0.9971785545349121), (np.str_('CWE-22'), 0.0007958221831358969), (np.str_('CWE-77'), 0.0007639528485015035)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+274,CWE-89,CWE-89,0.9999936819076538,"[(np.str_('CWE-89'), 0.9999936819076538), (np.str_('CWE-79'), 2.2106162305135513e-06), (np.str_('CWE-77'), 1.7565066627867054e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+275,CWE-22,CWE-22,0.9933338761329651,"[(np.str_('CWE-22'), 0.9933338761329651), (np.str_('CWE-79'), 0.002260214649140835), (np.str_('CWE-502'), 0.0019676177762448788)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+276,CWE-22,CWE-22,0.9926173090934753,"[(np.str_('CWE-22'), 0.9926173090934753), (np.str_('CWE-79'), 0.002547257812693715), (np.str_('CWE-502'), 0.002444107551127672)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.3% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.3%),Address the CWE-22 vulnerability in the code.
+277,CWE-79,CWE-79,0.9971519708633423,"[(np.str_('CWE-79'), 0.9971519708633423), (np.str_('CWE-77'), 0.0008146208128891885), (np.str_('CWE-22'), 0.0007615117356181145)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+278,CWE-77,CWE-77,0.6161993741989136,"[(np.str_('CWE-77'), 0.6161993741989136), (np.str_('CWE-79'), 0.3661693334579468), (np.str_('CWE-89'), 0.0076180933974683285)]",llm,CWE-77,True,"import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Random;
+public class DataMigrationServlet extends HttpServlet {
+private static final String SCRIPTS_DIR = ""/scripts"";
+private static final Random random = new Random();
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""bash "" + SCRIPTS_DIR + ""/migrate_data.sh "" + dataId;
+if (random.nextBoolean()) {
+Runtime.getRuntime().exec(cmd);
+} else {
+response.getWriter().print(""Migration en attente"");
+}
+}
+}","
+You are an expert software security analyst specializing in Common Weakness Enumeration (CWE).
+
+Your task is to classify the following vulnerable source code into exactly ONE of the following CWE categories:
+
+- CWE-022: Path Traversal
+- CWE-077: Command Injection
+- CWE-502: Deserialization of Untrusted Data
+- CWE-079: Cross-Site Scripting (XSS)
+- CWE-089: SQL Injection
+
+Instructions:
+1. Carefully analyze the vulnerable source code.
+2. Determine the primary security vulnerability present.
+3. Map the vulnerability to the most appropriate CWE from the five categories listed above.
+4. Reason internally before making your decision.
+5. Return ONLY the CWE ID.
+
+Rules:
+- Return exactly one of:
+  - CWE-022
+  - CWE-077
+  - CWE-502
+  - CWE-079
+  - CWE-089
+- Do not provide any explanation.
+- Do not include additional text.
+- Do not output anything except the CWE ID.
+
+Vulnerable Source Code:
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.Random;
+public class DataMigrationServlet extends HttpServlet {
+private static final String SCRIPTS_DIR = ""/scripts"";
+private static final Random random = new Random();
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws IOException {
+String dataId = request.getParameter(""data_id"");
+String cmd = ""bash "" + SCRIPTS_DIR + ""/migrate_data.sh "" + dataId;
+if (random.nextBoolean()) {
+Runtime.getRuntime().exec(cmd);
+} else {
+response.getWriter().print(""Migration en attente"");
+}
+}
+}
+",CWE-077,The code is vulnerable to Command Injection because it constructs a command string using user input (`dataId`) without proper validation or sanitization.,"`String cmd = ""bash "" + SCRIPTS_DIR + ""/migrate_data.sh "" + dataId;`","Use a whitelist of allowed values for `dataId` or use a parameterized approach if available, and avoid directly executing commands with user-supplied inputs."
+279,CWE-502,CWE-502,0.9941093921661377,"[(np.str_('CWE-502'), 0.9941093921661377), (np.str_('CWE-22'), 0.0021608786191791296), (np.str_('CWE-79'), 0.001965333241969347)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (99.4%),Address the CWE-502 vulnerability in the code.
+280,CWE-79,CWE-79,0.9971818923950195,"[(np.str_('CWE-79'), 0.9971818923950195), (np.str_('CWE-77'), 0.0007655704976059496), (np.str_('CWE-22'), 0.0007580470992252231)]",codebert,CWE-79,True,,,,"CodeBERT classified this with 99.7% confidence as CWE-79. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-79 (99.7%),Address the CWE-79 vulnerability in the code.
+281,CWE-89,CWE-89,0.9999935626983643,"[(np.str_('CWE-89'), 0.9999935626983643), (np.str_('CWE-79'), 2.3676468572375597e-06), (np.str_('CWE-77'), 1.6948523580140318e-06)]",codebert,CWE-89,True,,,,"CodeBERT classified this with 100.0% confidence as CWE-89. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-89 (100.0%),Address the CWE-89 vulnerability in the code.
+282,CWE-22,CWE-22,0.9937915205955505,"[(np.str_('CWE-22'), 0.9937915205955505), (np.str_('CWE-502'), 0.0019496879540383816), (np.str_('CWE-79'), 0.0018959156004711986)]",codebert,CWE-22,True,,,,"CodeBERT classified this with 99.4% confidence as CWE-22. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-22 (99.4%),Address the CWE-22 vulnerability in the code.
+283,CWE-502,CWE-502,0.9799228310585022,"[(np.str_('CWE-502'), 0.9799228310585022), (np.str_('CWE-79'), 0.012277220375835896), (np.str_('CWE-22'), 0.004519097972661257)]",codebert,CWE-502,True,,,,"CodeBERT classified this with 98.0% confidence as CWE-502. High confidence, Qwen2.5-Coder analysis skipped.",Top prediction: CWE-502 (98.0%),Address the CWE-502 vulnerability in the code.
